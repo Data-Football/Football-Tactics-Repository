@@ -48,13 +48,13 @@
         for (let i = 0; i < Cadastro.length; i++) {
             if (Cadastro[i].User === user_name) {
                 validacao_user = 1
-                break
+                i = Cadastro.length
             }
         }
         for (let i = 0; i < Cadastro.length; i++) {
             if (Cadastro[i].Senha === senha) {
                 validacao_senha = 1
-                break
+                i = Cadastro.length
             }
         }
         if (validacao_user == 1 && validacao_senha == 1) {
