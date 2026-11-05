@@ -17,37 +17,37 @@
         <div class="card-principal">
             <div class="card-form">
                 <form id="form_cadastro">
-                <h1>Faça parte da equipe!</h1>
-                <h2>Preencha as informaçãos abaixo para se cadastrar</h2>
-                <label>Informe o seu nome</label><br>
-                <input type="text" id="ipt_nome" placeholder="Ex: Seu nome"><br>
-                <label>Informe o seu email</label><br>
-                <input type="text" id="ipt_email" placeholder="Ex: endereco@contato.com"><br>
-                <label>Informe o seu telefone</label><br>
-                <input type="text" id="ipt_telefone" placeholder="Ex: (xx) xxxxx-xxxx"><br>
-                <label>Informe o seu nome de usuário</label><br>
-                <input type="text" id="ipt_user" placeholder="Ex: Usuario123"><br>
-                <label>Informe o time que você torçe</label><br>
-                <input type="text" id="ipt_time" placeholder="Ex: Time FC"><br>
-                <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
-                <input type="text" id="ipt_conhecimento" placeholder="Ex: 5"><br>
-                <label>Informe uma senha</label><br>
-                <input type="password" id="ipt_senha" placeholder="********"><br>
-                <label>Informe a senha novamente</label><br>
-                <input type="password" id="ipt_conf_senha" placeholder="********"><br><br>
-                
-            </form>
-            <div class="card-botoes">
+                    <h1>Faça parte da equipe!</h1>
+                    <h2>Preencha as informaçãos abaixo para se cadastrar</h2>
+                    <label>Informe o seu nome</label><br>
+                    <input type="text" id="ipt_nome" placeholder="Ex: Seu nome"><br>
+                    <label>Informe o seu email</label><br>
+                    <input type="text" id="ipt_email" placeholder="Ex: endereco@contato.com"><br>
+                    <label>Informe o seu telefone</label><br>
+                    <input type="text" id="ipt_telefone" placeholder="Ex: (xx) xxxxx-xxxx"><br>
+                    <label>Informe o seu nome de usuário</label><br>
+                    <input type="text" id="ipt_user" placeholder="Ex: Usuario123"><br>
+                    <label>Informe o time que você torçe</label><br>
+                    <input type="text" id="ipt_time" placeholder="Ex: Time FC"><br>
+                    <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
+                    <input type="text" id="ipt_conhecimento" placeholder="Ex: 5"><br>
+                    <label>Informe uma senha</label><br>
+                    <input type="password" id="ipt_senha" placeholder="********"><br>
+                    <label>Informe a senha novamente</label><br>
+                    <input type="password" id="ipt_conf_senha" placeholder="********"><br><br>
+
+                </form>
+                <div class="card-botoes">
                     <button onclick="cadastrar()" id="cadastrar" class="botao-form">Cadastrar</button><br>
-            </div><br>
+                </div><br>
             </div>
         </div>
-            <div class="teste"></div>
-        </div>
+        <div class="teste"></div>
+    </div>
     </div>
 </body>
 <script>
-    let Cadastro = JSON.parse(localStorage.getItem('DadosCadastrados')) || []
+    let Cadastro = []
     function cadastrar() {
         let nome = ipt_nome.value
         let email = ipt_email.value
@@ -65,10 +65,11 @@
             alert("Insira todas as informações para concluir o cadastro")
         } else {
             for (let i = 0; i < Cadastro.length; i++) {
-                    if (Cadastro[i].User == user_name) {
-                        validacao_user = 1
-                        i = Cadastro.length
-                    }
+                if (Cadastro[i].User == user_name) {
+                    validacao_user = 1
+                    break
+                    console.log('Usuário pode ser cadastrado')
+                }
             }
             if (arroba == -1) {
                 alert('O email precisa ter @')
@@ -77,39 +78,78 @@
             } else if (arroba_antes_com == false) {
                 alert('Formato de e-mail inválido. O "@" deve vir antes do ".com"')
             } else if (validacao_user == 1) {
-               alert('Este usuário já existe')
+                alert('Este usuário já existe')
             } else if (conhecimento < 0 || conhecimento > 10) {
                 alert('Insira um valor de 0 a 10')
             } else if (senha.length < 8) {
                 alert('A senha precisa ter 8 ou mais caracteres')
             } else if (senha != conf_senha) {
                 alert('As senhas não coincidem!')
-            } else{
-                Cadastro.push({
+            }
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
                     Nome: nome,
                     Email: email,
                     Telefone: telefone,
-                    User: user_name,
                     Conhecimento: conhecimento,
                     Time: time,
                     Senha: senha
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        alert('Cadastro concluído! Aguarde o redirecionamento')
+
+                        setTimeout(() => {
+                            window.location.href = 'login.html'
+                        }, 3000)
+
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
                 })
-                localStorage.setItem ('DadosCadastrados', JSON.stringify(Cadastro))
-                alert('Cadastro concluído! Aguarde o redirecionamento')
-                ipt_nome.value = '';
-                ipt_email.value = '';
-                ipt_telefone.value = '';
-                ipt_user.value = '';
-                ipt_conhecimento.value = '';
-                ipt_conf_senha.value = '';
-                ipt_senha.value = '';
-                ipt_time.value = '';
-                setTimeout(() => {
-                    window.location.href = 'login.html'
-                }, 3000)
-            }
-            
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    finalizarAguardar();
+                });
+
+            return false;
+
         }
     }
+    function limparFormulario() {
+        ipt_nome.value = '';
+        ipt_email.value = '';
+        ipt_telefone.value = '';
+        ipt_user.value = '';
+        ipt_conhecimento.value = '';
+        ipt_conf_senha.value = '';
+        ipt_senha.value = '';
+        ipt_time.value = '';
+    }
+    function listar() {
+    fetch("/user_name/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((User) => {
+            User.forEach((User) => {
+            Cadastro.push(User);
+            console.log("Cadastro")
+            console.log(Cadastro[0].User)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
 </script>
+
 </html>
