@@ -1,17 +1,16 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 
 function autenticar(req, res) {
-    var email = req.body.emailServer;
+    var user_name = req.body.user_nameServer;
     var senha = req.body.senhaServer;
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
+    if (user_name == undefined) {
+        res.status(400).send("Seu nome de usuário está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(user_name, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -26,16 +25,15 @@ function autenticar(req, res) {
                                     res.json({
                                         id: resultadoAutenticar[0].id,
                                         email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
+                                        user_name: resultadoAutenticar[0].user_name,
                                         senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
                                     });
                                 } else {
                                     res.status(204).json({ aquarios: [] });
                                 }
                             })
                     } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                        res.status(403).send("Usuário e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
@@ -56,8 +54,10 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
-    var cpf = req.body.cpfServer;
+    var telefone = req.body.telefoneServer;
+    var user_name = req.body.user_nameServer;
+    var conhecimento = req.body.conhecimentoServer;
+    var time = req.body.timeServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -66,14 +66,18 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (cpf == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    } else if (user_name == undefined) {
+        res.status(400).send("Seu nome de usuário está undefined!");
+    } else if (time == undefined) {
+        res.status(400).send("Seu time está undefined!");
+    } else if (conhecimento == undefined) {
+        res.status(400).send("Seu time está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa, cpf)
+        usuarioModel.cadastrar(nome, email, senha, telefone, user_name, time, conhecimento)
             .then(
                 function (resultado) {
                     res.json(resultado);
