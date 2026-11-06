@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+a{
+    color: white;
+}
+.card-total{
+    justify-content: space-between;
+    flex-direction: row;
+}
+.card-navbar{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3d195d;
+    order: 1;
+}
+.img-nav{
+    width: 100px;
+}
+.card-navbar-links{
+    height: 100%;
+    display: flex;
+}
+.card-navbar-links ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.card-navbar-links li a{
+    display: block;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: 500;
+}
+.card-navbar-links li{
+    list-style: none;
+}
+.button-login{
+    background-color: #00ff85;
+    height: 50px;
+    width: 100px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid;
+    margin-right: 20px;
+}
+.card-pai{
+    display: flex;
+    flex-direction: row;
+    order: 2;
+}
+.card-img{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 20%;
+    order: 1;
+}
+.card-img img{
+    width: 100%;
+}
+.card-principal{
+    margin-top: 50px;
+    background-color: #3d195d;
+    border-radius: 20px;
+    width: 60%;
+    justify-content: center;    
+    color: white;
+    order: 2;
+}
+.card-principal-h1-h2{
+    text-align: center;
+}
+.card-principal input, label{
+    align-items: center;
+    width: 100%;
+}
+.card-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-botoes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-botoes label{
+    text-align: center;
+}
+.botao-form{
+    width: 100%;
+    background-color: #00ff85;
+    color: #3d195d;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 20px;
+}
+.teste{
+    order: 3;
+    width: 20%;
+}
+.card-footer{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3d195d;
+    order: 3;
+    margin-top: 6%;
+}
+.footer p, h2, h1, li{
+    color: white;
+    list-style: none;
+}
+.footer-left {
+    order: 1;
+    margin-left: 20px;
+    font-size: 15px;
+}
+.footer-center{
+    order: 2;
+}
+.footer-right {
+    order: 3;
+    margin-right: 20px;
+    text-align: center;
+    font-size: 10px;
+}
+.img-footer{
+    width: 100px;
+}
