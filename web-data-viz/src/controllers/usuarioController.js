@@ -17,21 +17,7 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-
-                        aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].Email,
-                                        user_name: resultadoAutenticar[0].User,
-                                        senha: resultadoAutenticar[0].Senha,
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
+                        console.log(resultadoAutenticar);                            
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Usuário e/ou senha inválido(s)");
                     } else {
@@ -51,13 +37,13 @@ function autenticar(req, res) {
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
-    var telefone = req.body.telefoneServer;
-    var user_name = req.body.user_nameServer;
-    var conhecimento = req.body.conhecimentoServer;
-    var time = req.body.timeServer;
+    var nome = req.body.Nome;
+    var email = req.body.Email;
+    var senha = req.body.Senha;
+    var telefone = req.body.Telefone;
+    var user_name = req.body.User;
+    var conhecimento = req.body.Conhecimento;
+    var time = req.body.Time;
 
     // Faça as validações dos valores
     if (nome == undefined) {

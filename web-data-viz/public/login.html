@@ -17,57 +17,79 @@
         <div class="card-principal">
             <div class="card-form">
                 <form id="form_cadastro">
-                <h1>Bem-vindo, novamente!</h1>
-                <h2>Preencha as informaçãos abaixo para entrar</h2>
-                <label>Informe o seu nome de usuário</label><br>
-                <input type="text" id="ipt_user_name" placeholder="Ex: Usuario123"><br>
-                <label>Informe uma senha</label><br>
-                <input type="password" id="ipt_senha" placeholder="********"><br><br>    
-            </form>
-            <div class="card-botoes">
+                    <h1>Bem-vindo, novamente!</h1>
+                    <h2>Preencha as informaçãos abaixo para entrar</h2>
+                    <label>Informe o seu nome de usuário</label><br>
+                    <input type="text" id="ipt_user_name" placeholder="Ex: Usuario123"><br>
+                    <label>Informe uma senha</label><br>
+                    <input type="password" id="ipt_senha" placeholder="********"><br><br>
+                </form>
+                <div class="card-botoes">
                     <button onclick="login()" id="login" class="botao-form">Login</button><br>
                     <label>Ainda não se cadastrou? Clique no botão abaixo</label><br>
                     <button onclick="cadastro()" id="cadastro" class="botao-form">Realizar cadastro</button>
-            </div><br>
+                </div><br>
             </div>
         </div>
-            <div class="teste"></div>
-        </div>
+        <div class="teste"></div>
+    </div>
     </div>
 </body>
 <script>
-    let Cadastro = JSON.parse(localStorage.getItem('DadosCadastrados'))
     function cadastro() {
-            window.location.href = './cadastro.html'
-        }
+        window.location.href = './cadastro.html'
+    }
     function login() {
         let user_name = ipt_user_name.value;
         let senha = ipt_senha.value;
-        let validacao_user = 0
-        let validacao_senha = 0
-        for (let i = 0; i < Cadastro.length; i++) {
-            if (Cadastro[i].User === user_name) {
-                validacao_user = 1
-                i = Cadastro.length
-            }
+        if (user_name == '' || senha == '') {
+            alert("Preencha todos os campos para realizar o login")
+        } else {
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    User: user_name,
+                    Senha: senha
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.USER_USUARIO = json.User;
+                        sessionStorage.SENHA_USUARIO = json.Senha;
+                        window.location.href = "./quiz.html";
+                        setTimeout(function () {
+                            alert(`Bem-vindo ${user_name}`)
+                            
+                        }, 1000); // apenas para exibir o loading
+
+                    });
+
+                } else {
+                    alert("Usuário ou senha incorreto")
+                    console.log("Houve um erro ao tentar realizar o login!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+
+            return false;
         }
-        for (let i = 0; i < Cadastro.length; i++) {
-            if (Cadastro[i].Senha === senha) {
-                validacao_senha = 1
-                i = Cadastro.length
-            }
-        }
-        if (validacao_user == 1 && validacao_senha == 1) {
-            alert(`Bem-vindo ${user_name}!`)
-            window.location.href = './quiz.html'
-        }
-        if (validacao_user == 0) {
-            alert('Usuário incorreta!')
-        }
-        if (validacao_senha == 0) {
-            alert('Senha incorreta!')
-        } 
-           
+
     }
 </script>
+
 </html>
