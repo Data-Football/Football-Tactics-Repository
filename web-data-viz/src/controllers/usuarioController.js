@@ -17,7 +17,22 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);                            
+                        console.log(resultadoAutenticar);
+                    usuarioModel.autenticar(
+                        resultadoAutenticar[0].user_name,
+                        resultadoAutenticar[0].senha    
+                    )
+                    .then((resultadoCadastro) => {
+                                if (resultadoCadastro.length > 0) {
+                                    res.json({
+                                        email: resultadoAutenticar[0].email,
+                                        senha: resultadoAutenticar[0].senha,
+                                        Autenticacao: resultadoCadastro
+                                    });
+                                } else {
+                                    res.status(204).json({ Autenticacao: [] });
+                                }
+                            })      
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Usuário e/ou senha inválido(s)");
                     } else {
