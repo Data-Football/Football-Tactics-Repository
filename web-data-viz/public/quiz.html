@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style-quiz.css">
+    <link rel="stylesheet" href="js/sessao.js">
     <title>Football Tactics - Quiz</title>
 </head>
 <body>
@@ -39,6 +40,7 @@
         <div id="jogo" class="width-fit-content flex-colunar border-secondary card-questoes">
 
             <div id="infoQuestao" class="padding-8">
+                <span>Quiz do usuário: <span id="user"></span></span>
                 <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
                     questões.</span>
             </div>
@@ -106,6 +108,7 @@
    const listaDeQuestoes = [
 
         {
+            numero_questao: '1',
             pergunta: "Qual mês tem 30 dias?",
             alternativaA: "Janeiro",
             alternativaB: "Dezembro",
@@ -115,6 +118,7 @@
         },
 
         {
+            numero_questao: '2',
             pergunta: "Quantas horas tem em um dia?",
             alternativaA: "30 horas",
             alternativaB: "38 horas",
@@ -124,6 +128,36 @@
         },
 
         {
+            numero_questao: '3',
+            pergunta: "Qual destes números é ímpar?",
+            alternativaA: "Dez",
+            alternativaB: "Doze",
+            alternativaC: "Oito",
+            alternativaD: "Onze",
+            alternativaCorreta: "alternativaD"
+        },
+        {
+            numero_questao: '4',
+            pergunta: "Qual mês tem 30 dias?",
+            alternativaA: "Janeiro",
+            alternativaB: "Dezembro",
+            alternativaC: "Junho",
+            alternativaD: "Agosto",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            numero_questao: '5',
+            pergunta: "Quantas horas tem em um dia?",
+            alternativaA: "30 horas",
+            alternativaB: "38 horas",
+            alternativaC: "48 horas",
+            alternativaD: "24 horas",
+            alternativaCorreta: "alternativaD"
+        },
+
+        {
+            numero_questao: '6',
             pergunta: "Qual destes números é ímpar?",
             alternativaA: "Dez",
             alternativaB: "Doze",
@@ -141,14 +175,15 @@
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
+    let dificuldade_quiz = 'Médio'
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
-
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
         document.getElementById('jogo').style.display = "none"
     }
 
     function iniciarQuiz() {
+        document.getElementById('user').innerHTML = sessionStorage.USER_USUARIO
         document.getElementById('pontuacao').style.display = "flex"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
@@ -307,14 +342,39 @@
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
         document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
-
         document.getElementById('jogo').classList.add("text-new-gray") 
+        
+        fetch("/empresa/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    Pontuacao: pontuacaoFinal,
+                    Certas: certas,
+                    Erradas: erradas,
+                    Dificuldade: dificuldade_quiz
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        alert('Quiz salvo!')
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`)
+                });
 
-        btnProx.disabled = true
-        btnSubmeter.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = false
+                return false;
+                btnProx.disabled = true
+                btnSubmeter.disabled = true
+                // btnConcluir.disabled = true
+                btnTentarNovamente.disabled = false
+        }
+        
 
-    }
 </script>
 </html>

@@ -1,15 +1,16 @@
 // sessão
 function validarSessao() {
-    var senha = sessionStorage.Senha;
-    var user_name = sessionStorage.User;
+    var senha = sessionStorage.SENHA;
+    var user_name = sessionStorage.USER;
+    var id = sessionStorage.IDUSUARIO;
 
-    var ipt_user_name = document.getElementById("ipt_user_name");
-    var ipt_senha = document.getElementById("ipt_senha");
+    var User_name = document.getElementById("ipt_user_name");
+    var Senha = document.getElementById("ipt_senha");
 
-    if (ipt_user_name != null && ipt_senha != null) {
-        div_user.innerHTML = user_name;
+    if (User_name != null && Senha != null) {
+        console.log('Usuário logado')
     } else {
-        window.location = "../login.html";
+        window.location = "./login.html";
     }
 }
 

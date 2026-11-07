@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/style-cadastro.css">
 </head>
 
-<body>
+<body onload="listar()">
 
     <div class="card-pai">
         <div class="card-img">
@@ -27,14 +27,17 @@
                     <input type="text" id="ipt_telefone" placeholder="Ex: (xx) xxxxx-xxxx"><br>
                     <label>Informe o seu nome de usuário</label><br>
                     <input type="text" id="ipt_user" placeholder="Ex: Usuario123"><br>
+                    <div id="div_user_name"></div>
                     <label>Informe o time que você torçe</label><br>
                     <input type="text" id="ipt_time" placeholder="Ex: Time FC"><br>
                     <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
                     <input type="text" id="ipt_conhecimento" placeholder="Ex: 5"><br>
                     <label>Informe uma senha</label><br>
                     <input type="password" id="ipt_senha" placeholder="********"><br>
+                    <div id="div_msg_senha"></div>
                     <label>Informe a senha novamente</label><br>
                     <input type="password" id="ipt_conf_senha" placeholder="********"><br><br>
+                    <div id="div_conf_senha"></div>
 
                 </form>
                 <div class="card-botoes">
@@ -65,10 +68,10 @@
             alert("Insira todas as informações para concluir o cadastro")
         } else {
             for (let i = 0; i < Cadastro.length; i++) {
-                if (Cadastro[i].User == user_name) {
-                    validacao_user = 1
+                if (Cadastro[i].user_name == ipt_user.value) {
+                    div_user_name.innerHTML = 'O usuário já existe'
+                    console.log('Usuário não pode ser cadastrado')
                     break
-                    console.log('Usuário pode ser cadastrado')
                 }
             }
             if (arroba == -1) {
@@ -77,8 +80,6 @@
                 alert('Insira caracteres antes do @')
             } else if (arroba_antes_com == false) {
                 alert('Formato de e-mail inválido. O "@" deve vir antes do ".com"')
-            } else if (validacao_user == 1) {
-                alert('Este usuário já existe')
             } else if (conhecimento < 0 || conhecimento > 10) {
                 alert('Insira um valor de 0 a 10')
             } else if (senha.length < 8) {
@@ -135,15 +136,15 @@
         ipt_time.value = '';
     }
     function listar() {
-    fetch("/user_name/listar", {
+    fetch("/empresas/listar", {
       method: "GET",
     })
       .then(function (resposta) {
-        resposta.json().then((User) => {
-            User.forEach((User) => {
-            Cadastro.push(User);
+        resposta.json().then((user) => {
+            user.forEach((user_name) => {
+            Cadastro.push(user_name);
             console.log("Cadastro")
-            console.log(Cadastro[0].User)
+            console.log(Cadastro[0].user_name)
           });
         });
       })
