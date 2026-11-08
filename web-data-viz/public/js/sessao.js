@@ -1,16 +1,19 @@
 // sessão
 function validarSessao() {
-    var senha = sessionStorage.SENHA;
-    var user_name = sessionStorage.USER;
-    var id = sessionStorage.IDUSUARIO;
+    var senha = sessionStorage.SENHA_USUARIO;
+    var user_name = sessionStorage.USER_USUARIO;
+    var id = sessionStorage.ID_USUARIO;
+    var txt_botao = document.getElementById('msg_button')
+    var botao = document.getElementById('button-paginas')
 
-    var User_name = document.getElementById("ipt_user_name");
-    var Senha = document.getElementById("ipt_senha");
-
-    if (User_name != null && Senha != null) {
+    if (user_name != null && senha != null) {
         console.log('Usuário logado')
+        txt_botao.innerHTML = 'Sair da sessão'
+        botao.onclick = limparSessao;
     } else {
         window.location = "./login.html";
+        txt_botao.innerText = 'Login'
+        botao.onclick = login()
     }
 }
 

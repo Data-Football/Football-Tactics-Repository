@@ -21,11 +21,11 @@ function buscarPorUser(req, res) {
 }
 
 function cadastrar(req, res) {
-  var pontuacao = req.body.pontuacao;
-  var certas = req.body.certas;
-  var erradas = req.body.erradas;
-  var dificuldade = req.body.dificuldade_quiz
-  var id_usuario = req.body.id
+  var pontuacao = req.body.Pontuacao;
+  var certas = req.body.Certas;
+  var erradas = req.body.Erradas;
+  var dificuldade = req.body.Dificuldade;
+  var id_usuario = req.body.Id
 
       empresaModel.cadastrar(pontuacao, certas, erradas, dificuldade, id_usuario).then((resultado) => {
         res.status(201).json(resultado);

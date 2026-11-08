@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Tactics - Cadastro</title>
     <link rel="stylesheet" href="./css/style-login.css">
-    <link rel="stylesheet" href="js/sessao.js">
+    <script src="js/sessao.js"></script>
 </head>
 
 <body>
@@ -64,8 +64,9 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        sessionStorage.USER_USUARIO = json.User;
-                        sessionStorage.SENHA_USUARIO = json.Senha;
+                        sessionStorage.USER_USUARIO = JSON.stringify(json.User);
+                        sessionStorage.SENHA_USUARIO = JSON.stringify(json.Senha)
+                        sessionStorage.ID_USUARIO = JSON.stringify(json.Id)
                         sessionStorage.AUTENTICACAO = JSON.stringify(json.Autenticacao)
                         
                         setTimeout(function () {

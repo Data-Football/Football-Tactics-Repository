@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style-quiz.css">
-    <link rel="stylesheet" href="js/sessao.js">
+    <script src="js/sessao.js"></script>
     <title>Football Tactics - Quiz</title>
 </head>
-<body>
+<body onload="validarSessao()">
     <header>
         <nav class="card-navbar txt-nav">
             <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics" class="img-nav">
@@ -20,7 +20,7 @@
                 <li><a href="./quiz.html">Quiz</a></li>
                 </ul>
             </div>
-            <button class="button-login" onclick="Login()">Login</button>
+            <button class="button-login" id="button-paginas"><span id="msg_button"></span></button>
         </nav>
      <div id="pontuacaoEJogo" class="card-quiz"><br>
         <button id="btnIniciarQuiz" class="button-iniciar" onclick="iniciarQuiz()">INICIAR QUIZ</button><br><br>
@@ -98,13 +98,15 @@
             </div>
             <div class="footer-right">
                 <img src="./assets/img/football_tactics_remove.png" alt="Logo da Football Tactics" class="img-footer">
-                <p>© 2026 Football Tactics -
+                <p>&copy; 2026 Football Tactics -
                 <br> Todos os direitos reservados.</p>
             </div>
         </div>
     </section>
 </body>
 <script>
+    let user = sessionStorage.USER_USUARIO
+    let id_user = sessionStorage.ID_USUARIO
    const listaDeQuestoes = [
 
         {
@@ -175,7 +177,7 @@
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
-    let dificuldade_quiz = 'Médio'
+    let dificuldade_quiz = 1
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
@@ -183,7 +185,7 @@
     }
 
     function iniciarQuiz() {
-        document.getElementById('user').innerHTML = sessionStorage.USER_USUARIO
+        document.getElementById('user').innerHTML = user
         document.getElementById('pontuacao').style.display = "flex"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
@@ -343,8 +345,8 @@
         document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
         document.getElementById('jogo').classList.add("text-new-gray") 
-        
-        fetch("/empresa/cadastrar", {
+
+        fetch("/empresas/cadastrar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -353,7 +355,8 @@
                     Pontuacao: pontuacaoFinal,
                     Certas: certas,
                     Erradas: erradas,
-                    Dificuldade: dificuldade_quiz
+                    Dificuldade: dificuldade_quiz,
+                    Id: id_user
                 }),
             })
                 .then(function (resposta) {

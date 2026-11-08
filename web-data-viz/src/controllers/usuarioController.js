@@ -20,14 +20,15 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
                     usuarioModel.autenticar(
                         resultadoAutenticar[0].user_name,
-                        resultadoAutenticar[0].senha    
+                        resultadoAutenticar[0].senha 
                     )
                     .then((resultadoCadastro) => {
                                 if (resultadoCadastro.length > 0) {
                                     res.json({
-                                        email: resultadoAutenticar[0].email,
-                                        senha: resultadoAutenticar[0].senha,
-                                        Autenticacao: resultadoCadastro
+                                        Autenticacao: resultadoCadastro,
+                                        Senha: resultadoAutenticar[0].senha,
+                                        User: resultadoAutenticar[0].user_name,
+                                        Id: resultadoAutenticar[0].id
                                     });
                                 } else {
                                     res.status(204).json({ Autenticacao: [] });
