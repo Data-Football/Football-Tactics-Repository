@@ -21,7 +21,7 @@
                 <li><a href="./quiz.html">Quiz</a></li>
                 </ul>
             </div>
-            <button class="button-login" id="button-paginas"><span id="msg_button"></span></button>
+            <button class="button-login" id="button_paginas"></button>
         </nav>
     </header>
     <section>
@@ -36,10 +36,10 @@
                 <label for="">Categoria:</label><br>
                 <select name="" id="sel_categoria">
                     <option value="0" disabled selected>Selecione uma categoria</option>
-                    <option value="1">Melhorias</option>
-                    <option value="2">Links</option>
-                    <option value="3">Bugs</option>
-                    <option value="4">Reclamações</option>
+                    <option value="Melhorias">Melhorias</option>
+                    <option value="Links">Links</option>
+                    <option value="Bugs">Bugs</option>
+                    <option value="Reclamações">Reclamações</option>
                 </select><br>
                 <label for="">Assunto:</label>
                 <input type="text" id="ipt_assunto">
@@ -51,7 +51,7 @@
             </div><br>
             </div>
         </div>
-            <div class="teste"></div>
+            <div class="teste" id="div_msg"></div>
         </div>
     </div>
     </section>
@@ -79,6 +79,42 @@
     </div>
 </body>
 <script>
+    let id_pessoa = sessionStorage.ID_USUARIO
+    function sugestao() {
+        let tipo = sel_categoria.value;
+        let assunto = ipt_assunto.value;
+        let descricao = ipt_descricao.value;
+
+        if (assunto == '' || descricao == '') {
+            div_msg.innerHTML = 'Insira informações válidas'
+        } else {
+             fetch("/aquarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    Tipo: tipo,
+                    Id: id_pessoa,
+                    Assunto: assunto,
+                    Descricao: descricao
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        alert('Formulário enviado!')
+                    } else {
+                        throw "Houve um erro ao tentar realizar o envio do formulário!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`)
+                });
+
+                return false;
+        }
+    }
     function login() {
         window.location.href = './login.html';
     }

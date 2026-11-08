@@ -7,7 +7,7 @@
     <script src="js/sessao.js"></script>
     <title>Football Tactics</title>
 </head>
-<body>
+<body onload="validarSessao()">
     <header>
         <nav class="card-navbar txt-nav">
             <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics" class="img-nav">
@@ -16,11 +16,11 @@
                 <li><a href="./index.html">Inicio</a></li>
                     <li><a href="./taticas.html">Táticas</a></li>
                     <li><a href="./tecnicos.html">Técnicos</a></li>
-                    <li><a href="./sugestoes.html">Sugestões</a></li>
-                    <li><a href="./quiz.html">Quiz</a></li>
+                    <li><a href="./sugestoes.html" id="sugestoes">Sugestões</a></li>
+                    <li><a href="./quiz.html" id="quiz">Quiz</a></li>
                 </ul>
             </div>
-            <button class="button-login" id="button-paginas"><span id="msg_button"></span></button>
+            <button class="button-login" id="button_paginas"></button>
         </nav>
     </header>
     <section>
