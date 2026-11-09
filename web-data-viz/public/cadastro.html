@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/style-cadastro.css">
 </head>
 
-<body onload="listar()">
+<body onload="listar(), times()">
 
     <div class="card-pai">
         <div class="card-img">
@@ -29,7 +29,7 @@
                     <input type="text" id="ipt_user" placeholder="Ex: Usuario123"><br>
                     <div id="div_user_name"></div>
                     <label>Informe o time que você torçe</label><br>
-                    <input type="text" id="ipt_time" placeholder="Ex: Time FC"><br>
+                    <select name="" id="sel_times" style="width: 100%;"></select><br>
                     <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
                     <input type="text" id="ipt_conhecimento" placeholder="Ex: 5"><br>
                     <label>De 0 a 10, qual o seu conhecimento de tática?</label><br>
@@ -53,6 +53,42 @@
 </body>
 <script>
     let Cadastro = []
+    let Equipes = []
+    function times() {
+         fetch("/avisos/listar", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.ID_TIME = JSON.stringify(json.id);
+                        Equipes = json
+                        for (let i = 0; i < Equipes.length; i++) {
+                        let equipeAtual = Equipes[i];
+                        sel_times.innerHTML += `<option value="${equipeAtual.id}">${equipeAtual.time}</option>`;
+                    }
+                    });
+                    
+                } else {
+                    alert("Usuário ou senha incorreto")
+                    console.log("Houve um erro ao tentar realizar o login!");
+
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+
+            return false;
+    }
     function cadastrar() {
         let nome = ipt_nome.value
         let email = ipt_email.value
@@ -60,14 +96,14 @@
         let user_name = ipt_user.value
         let conhecimento = ipt_conhecimento.value
         let tatica = ipt_tatica.value
-        let time = ipt_time.value
+        let time = Number(sel_times.value)
         let senha = ipt_senha.value
         let conf_senha = ipt_conf_senha.value
         let com = email.indexOf('.com');
         let arroba = email.indexOf('@');
         let arroba_antes_com = arroba < com;
         let validacao_user = 0
-        if (nome.length <= 0 || email.length <= 0 || telefone.length <= 0 || user_name.length <= 0 || conhecimento.length <= 0 || time.length <= 0 || senha.length <= 0 || conf_senha.length <= 0 || tatica.length <= 0) {
+        if (nome.length <= 0 || email.length <= 0 || telefone.length <= 0 || user_name.length <= 0 || conhecimento.length <= 0 || time == 0 || senha.length <= 0 || conf_senha.length <= 0 || tatica.length <= 0) {
             alert("Insira todas as informações para concluir o cadastro")
         } else {
             for (let i = 0; i < Cadastro.length; i++) {
@@ -139,7 +175,6 @@
         ipt_conhecimento.value = '';
         ipt_conf_senha.value = '';
         ipt_senha.value = '';
-        ipt_time.value = '';
         ipt_tatica.value = '';
     }
     function listar() {
