@@ -59,7 +59,7 @@ function cadastrar(req, res) {
     var telefone = req.body.Telefone;
     var user_name = req.body.User;
     var conhecimento = req.body.Conhecimento;
-    var time = req.body.Time;
+    var tatica = req.body.Tatica;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -72,14 +72,14 @@ function cadastrar(req, res) {
         res.status(400).send("Seu telefone está undefined!");
     } else if (user_name == undefined) {
         res.status(400).send("Seu nome de usuário está undefined!");
-    } else if (time == undefined) {
+    } else if (tatica == undefined) {
         res.status(400).send("Seu time está undefined!");
     } else if (conhecimento == undefined) {
         res.status(400).send("Seu time está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, user_name, email, senha, telefone, time, conhecimento)
+        usuarioModel.cadastrar(nome, user_name, email, senha, telefone, tatica, conhecimento)
             .then(
                 function (resultado) {
                     res.json(resultado);

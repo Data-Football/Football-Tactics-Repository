@@ -32,6 +32,8 @@
                     <input type="text" id="ipt_time" placeholder="Ex: Time FC"><br>
                     <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
                     <input type="text" id="ipt_conhecimento" placeholder="Ex: 5"><br>
+                    <label>De 0 a 10, qual o seu conhecimento de tática?</label><br>
+                    <input type="text" id="ipt_tatica" placeholder="Ex: 8"><br>
                     <label>Informe uma senha</label><br>
                     <input type="password" id="ipt_senha" placeholder="********"><br>
                     <div id="div_msg_senha"></div>
@@ -57,6 +59,7 @@
         let telefone = ipt_telefone.value
         let user_name = ipt_user.value
         let conhecimento = ipt_conhecimento.value
+        let tatica = ipt_tatica.value
         let time = ipt_time.value
         let senha = ipt_senha.value
         let conf_senha = ipt_conf_senha.value
@@ -64,7 +67,7 @@
         let arroba = email.indexOf('@');
         let arroba_antes_com = arroba < com;
         let validacao_user = 0
-        if (nome.length <= 0 || email.length <= 0 || telefone.length <= 0 || user_name.length <= 0 || conhecimento.length <= 0 || time.length <= 0 || senha.length <= 0 || conf_senha.length <= 0) {
+        if (nome.length <= 0 || email.length <= 0 || telefone.length <= 0 || user_name.length <= 0 || conhecimento.length <= 0 || time.length <= 0 || senha.length <= 0 || conf_senha.length <= 0 || tatica.length <= 0) {
             alert("Insira todas as informações para concluir o cadastro")
         } else {
             for (let i = 0; i < Cadastro.length; i++) {
@@ -81,6 +84,8 @@
             } else if (arroba_antes_com == false) {
                 alert('Formato de e-mail inválido. O "@" deve vir antes do ".com"')
             } else if (conhecimento < 0 || conhecimento > 10) {
+                alert('Insira um valor de 0 a 10')
+            } else if (tatica < 0 || tatica > 10) {
                 alert('Insira um valor de 0 a 10')
             } else if (senha.length < 8) {
                 alert('A senha precisa ter 8 ou mais caracteres')
@@ -99,7 +104,8 @@
                     Senha: senha,
                     Telefone: telefone,
                     Time: time,   
-                    Conhecimento: conhecimento       
+                    Conhecimento: conhecimento,
+                    Tatica: tatica      
                 }),
             })
                 .then(function (resposta) {
@@ -134,6 +140,7 @@
         ipt_conf_senha.value = '';
         ipt_senha.value = '';
         ipt_time.value = '';
+        ipt_tatica.value = '';
     }
     function listar() {
     fetch("/empresas/listar", {
