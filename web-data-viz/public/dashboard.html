@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style-dash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/sessao.js"></script>
+    <title>Football Tactics - Dashboard</title>
+</head>
+
+<body onload="validarSessao()">
+    <header>
+        <nav class="card-navbar txt-nav">
+            <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics"
+                class="img-nav">
+            <div class="card-navbar-links">
+                <h1>Dashboard Analitíca - Data Football</h1>
+            </div>
+        </nav>
+    </header>
+    <div class="card-kpis">
+        <div class="card-kpi-left">KPI</div>
+        <div class="card-kpi-center">dasdasd</div>
+        <div class="card-kpi-right">dasdas</div>
+    </div>
+    <div class="card-pai">
+        <div class="card-left">
+            <div style="border: 1px solid antiquewhite;">   
+                <canvas id="user_card"></canvas>
+            </div>
+            <div style="border: 1px solid yellowgreen;">
+                <canvas id="sugestoes"></canvas>
+            </div>
+        </div>
+        <div class="card-right">
+            <canvas id="quiz_usuarios"></canvas>
+            <div class="card-table">
+                <h3>Ranking de acertos de perguntas</h3>
+                <table id="ranking">
+                    <tr>
+                        <th>Perguntas</th>
+                        <th>Percentual de acerto (%)</th>
+                    </tr>
+                    <tr id="perguntas">
+                        <th>fkdsnfnsd</th>
+                        <th>andoandoasnd</th>
+                    </tr>
+                    <tr id="acerto">
+                        <th>andkasndas</th>
+                        <th>knaskndkas</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        const grafico_userCad = document.getElementById('user_card');
+        const grafico_sugestoes = document.getElementById('sugestoes');
+        const grafico_userQuiz = document.getElementById('quiz_usuarios');
+
+        new Chart(grafico_userCad, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: 'Meu primeiro gráfico',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1,
+                    borderColor: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb (255, 0, 0)'
+                },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        new Chart(grafico_sugestoes, {
+            type: 'doughnut',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: 'Meu primeiro gráfico',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1,
+                    borderColor: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb (255, 0, 0)'
+                },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        new Chart(grafico_userQuiz, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: 'Meu primeiro gráfico',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1,
+                    borderColor: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb (255, 0, 0)'
+                },
+                ],
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        var paginacao = {};
+        var tempo = {};
+
+        function obterDados(grafico, endpoint) {
+            fetch('/medidas/' + endpoint)
+                .then(response => response.json())
+                .then(valores => {
+                    if (paginacao[endpoint] == null) {
+                        paginacao[endpoint] = 0;
+                    }
+                    if (tempo[endpoint] == null) {
+                        tempo[endpoint] = 0;
+                    }
+
+                    var ultimaPaginacao = paginacao[endpoint];
+                    paginacao[endpoint] = valores.length;
+                    valores = valores.slice(ultimaPaginacao);
+
+                    valores.forEach((valor) => {
+                        if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
+                            grafico.data.labels.shift();
+                            grafico.data.datasets[0].data.shift();
+                        }
+
+                        grafico.data.labels.push(tempo[endpoint]++);
+                        grafico.data.datasets[0].data.push(parseFloat(valor));
+                        grafico.update();
+                    });
+                })
+                .catch(error => console.error('Erro ao obter dados:', error));
+        }
+
+        setInterval(() => {
+            obterDados(grafico_userCad, 'analogico');
+            obterDados(grafico_sugestoes, 'digital');
+        }, 5000);
+
+    </script>
+</body>
