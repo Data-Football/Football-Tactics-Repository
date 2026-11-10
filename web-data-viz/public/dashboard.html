@@ -15,29 +15,44 @@
         <nav class="card-navbar txt-nav">
             <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics"
                 class="img-nav">
-            <div class="card-navbar-links">
-                <h1>Dashboard Analitíca - Data Football</h1>
-            </div>
+            <button class="button-login" id="button_paginas"></button>
         </nav>
     </header>
     <div class="card-kpis">
-        <div class="card-kpi-left">KPI</div>
-        <div class="card-kpi-center">dasdasd</div>
-        <div class="card-kpi-right">dasdas</div>
+        <div class="card-kpi-left">
+            <h3>Média de conhecimento de futebol</h3>
+            <span></span>
+            <h4></h4>
+        </div>
+        <div class="card-kpi-center">
+            <h3>Média de conhecimento tático</h3>
+            <span></span>
+            <h4></h4>
+        </div>
+        <div class="card-kpi-right">
+            <h3>Média de acertos no quiz</h3>
+            <span></span>
+            <h4></h4>
+        </div>
     </div>
     <div class="card-pai">
         <div class="card-left">
-            <div style="border: 1px solid antiquewhite;">   
+            <h3 class="txt-roxo">Analise Conhecimento Tático Usuário</h3>
+            <div class="grafico-size grafico-nivel">
                 <canvas id="user_card"></canvas>
             </div>
-            <div style="border: 1px solid yellowgreen;">
+            <h3 class="txt-roxo">Sugestões recebidas</h3>
+            <div class="grafico-sugestoes">
                 <canvas id="sugestoes"></canvas>
             </div>
         </div>
         <div class="card-right">
-            <canvas id="quiz_usuarios"></canvas>
+            <h3 class="txt-roxo">Top usuários com mais acerto</h3>
+            <div class="grafico-size grafico-quiz">
+                <canvas id="quiz_usuarios"></canvas>
+            </div>
+            <h3 class="txt-roxo">Ranking de acertos de perguntas</h3>
             <div class="card-table">
-                <h3>Ranking de acertos de perguntas</h3>
                 <table id="ranking">
                     <tr>
                         <th>Perguntas</th>
@@ -65,7 +80,7 @@
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
-                    label: 'Meu primeiro gráfico',
+                    label: 'Nível de Conhecimento sobre Táticas (0 a 10)',
                     data: [12, 19, 3, 5, 2, 3],
                     borderWidth: 1,
                     borderColor: 'rgb(255, 0, 0)',
@@ -74,6 +89,8 @@
                 ],
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -84,20 +101,32 @@
         new Chart(grafico_sugestoes, {
             type: 'doughnut',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Purple', 'Orange'],
                 datasets: [{
                     label: 'Meu primeiro gráfico',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [2, 3],
                     borderWidth: 1,
                     borderColor: 'rgb(255, 0, 0)',
-                    backgroundColor: 'rgb (255, 0, 0)'
+                    backgroundColor: 'rgb (255, 0, 0)',
                 },
                 ],
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
-                    y: {
-                        beginAtZero: true
+                    y: { display: false },
+                    x: { display: false }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        align: 'center',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 15
+                        }
                     }
                 }
             }
@@ -107,7 +136,7 @@
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
-                    label: 'Meu primeiro gráfico',
+                    label: 'Top usuários com mais acertos no quiz',
                     data: [12, 19, 3, 5, 2, 3],
                     borderWidth: 1,
                     borderColor: 'rgb(255, 0, 0)',
@@ -117,9 +146,12 @@
             },
             options: {
                 indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        display: false
                     }
                 }
             }
