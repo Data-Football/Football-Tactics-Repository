@@ -1,33 +1,39 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function buscarConhecimento() {
+  var instrucaoSql = `SELECT 
+                        tatica AS nivel_conhecimento, 
+                        COUNT(id) AS qtd_usuarios 
+                        FROM cadastro_usuario 
+                        GROUP BY tatica 
+                        ORDER BY tatica ASC;`;
 
-    var instrucaoSql = `SELECT 
-                        temperatura,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function buscarInfoQuiz() {
+  var instrucaoSql = `select c.nome, q.acertos from quiz as q
+                        join cadastro_usuario as c on c.id = q.fk_usuario_quiz
+                        order by q.acertos desc
+                        limit 5;`;
 
-    var instrucaoSql = `SELECT 
-                        temperatura,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+function buscarSugestoes() {
+  var instrucaoSql = `SELECT  tipo_sugestao, 
+                        COUNT(id) AS total 
+                        FROM sugestoes 
+                        GROUP BY tipo_sugestao;`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-}
+  buscarSugestoes,
+  buscarConhecimento,
+  buscarInfoQuiz,
+};

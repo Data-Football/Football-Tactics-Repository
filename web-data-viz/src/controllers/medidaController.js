@@ -1,14 +1,17 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarInfoQuiz(req, res) {
 
-    const limite_linhas = 7;
+    // const limite_linhas = 5;
 
-    var idAquario = req.params.idAquario;
+    var nome = req.params.nome;
+    var qtd_acertos = req.params.qtd_acertos;
+    var erros = req.params.erros;
+    var acertos = req.params.acertos;
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+    // console.log(`Recuperando as ultimas ${limite_linhas} informações`);
 
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
+    medidaModel.buscarInfoQuiz(nome, qtd_acertos, erros, acertos).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -21,14 +24,36 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 
+function buscarConhecimento(req, res) {
 
-function buscarMedidasEmTempoReal(req, res) {
+    // const limite_linhas = 5;
 
-    var idAquario = req.params.idAquario;
+    var nivel_conhecimento = req.params.nivel_conhecimento;
+    var qtd_usuarios = req.params.qtd_usuarios
+
+    // console.log(`Recuperando as ultimas ${limite_linhas} informações`);
+
+    medidaModel.buscarConhecimento(qtd_usuarios, nivel_conhecimento).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarSugestoes(req, res) {
+
+    var tipo_sugestao = req.params.tipo_sugestao;
+    var total = req.params.total;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
+    medidaModel.buscarSugestoes(tipo_sugestao, total).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -42,7 +67,7 @@ function buscarMedidasEmTempoReal(req, res) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-
+    buscarSugestoes,
+    buscarConhecimento,
+    buscarInfoQuiz
 }
