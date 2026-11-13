@@ -66,8 +66,51 @@ function buscarSugestoes(req, res) {
     });
 }
 
+function buscarMedias(req, res) {
+
+    var media_conhecimento = req.params.media_conhecimento;
+    var media_tatica = req.params.media_tatica;
+    var media_acerto_quiz = req.params.media_acerto_quiz
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    dashModel.buscarMedias(media_acerto_quiz, media_conhecimento, media_tatica).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarTimes(req, res) {
+
+    var time = req.params.time;
+    var qtd_times_escolhidos = req.params.qtd_times_escolhidos;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    dashModel.buscarTimes(time, qtd_times_escolhidos).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     buscarSugestoes,
     buscarConhecimento,
-    buscarInfoQuiz
+    buscarInfoQuiz,
+    buscarMedias,
+    buscarTimes
 }

@@ -32,8 +32,26 @@ function buscarSugestoes() {
   return database.executar(instrucaoSql);
 }
 
+function buscarMedias() {
+  var instrucaoSql = `select round(avg(cadastro_usuario.conhecimento), 1) as media_conhecimento, round(avg(cadastro_usuario.tatica), 1) as media_tatica, 
+                      round(avg(quiz.acertos), 1) as media_acerto_quiz from cadastro_usuario
+                      join quiz on quiz.fk_usuario_quiz = cadastro_usuario.id;`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function buscarTimes() {
+  var instrucaoSql = `select time, qtd_times_escolhidos from vw_times_escolhidos`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarSugestoes,
   buscarConhecimento,
   buscarInfoQuiz,
+  buscarMedias,
+  buscarTimes
 };

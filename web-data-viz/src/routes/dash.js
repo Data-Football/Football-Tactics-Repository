@@ -15,4 +15,12 @@ router.get("/ultimas/sugestoes", function (req, res) {
     dashController.buscarSugestoes(req, res);
 })
 
+router.get("/ultimas/medias", function (req, res) {
+    dashController.buscarMedias(req, res);
+})
+
+router.get("/ultimas/times", function (req, res) {
+    dashController.buscarTimes(req, res);
+})
+
 module.exports = router;

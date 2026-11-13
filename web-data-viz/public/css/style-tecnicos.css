@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+a{
+    color: white;
+}
+.card-navbar{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3d195d;
+}
+.img-nav{
+    width: 100px;
+}
+.card-navbar-links{
+    height: 100%;
+    display: flex;
+}
+.card-navbar-links ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.card-navbar-links li a{
+    display: block;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: 500;
+}
+.card-navbar-links li{
+    list-style: none;
+}
+.button-login{
+    background-color: #00ff85;
+    height: 50px;
+    width: 100px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid;
+    margin-right: 20px;
+}
+.card-secao1, .card-secao2{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.card-secao1-txt{
+    width: 70%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+.card-secao1-txt h1, .card-secao2-txt h1, .card-secao3-txt h1{
+    text-align: justify;
+    color: #3d195d;
+}
+.card-secao1-txt p, .card-secao2-txt p{
+    text-align: center;
+    width: 80%;
+    font-size: 20px;
+}
+.card-secao1-img img{
+    width: 100%;
+    height: 100%;
+}
+.card-secao2-txt{
+    width: 100%;
+    margin-left: 300px;
+    margin-top: 50px;
+    text-align: center;
+}
+.button-taticas{
+    background-color: #00ff85;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+}
+.card-secao3-button{
+    text-align: center;
+}
+.card-secao3-txt h1{
+    text-align: center;
+}
+.card-secao3-txt p{
+    text-align: center;
+    font-size: 20px;
+}
+.card-secao3-txt{
+    margin-left: 15%;
+    margin-top: 5%;
+    width: 70%;
+}
+.card-tecnicos{
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-tecnicos img{
+    width: 100%; 
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.card-tecnicos h3{
+    text-align: center;
+    margin-top: 15px;
+}
+.card-tecnicos p{
+    text-align: justify;
+    width: 100%;
+}
+.card-footer{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3d195d;
+}
+.footer p, h2, h1, li{
+    color: white;
+    list-style: none;
+}
+.footer-left {
+    order: 1;
+    margin-left: 20px;
+    font-size: 15px;
+}
+.footer-center{
+    order: 2;
+}
+.footer-right {
+    order: 3;
+    margin-right: 20px;
+    text-align: center;
+    font-size: 10px;
+}
+.img-footer{
+    width: 100px;
+}
