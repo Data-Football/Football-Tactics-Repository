@@ -46,34 +46,68 @@ a{
     border: 1px solid;
     margin-right: 20px;
 }
-.card-secao1, .card-secao2{
+.card-secao1{
     display: flex;
+    align-items: stretch; /* Faz as duas metades terem exatamente a mesma altura */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.card-secao2{
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
+    max-width: 800px; /* Use a mesma largura máxima do texto/card do Rinus Michels */
+    margin: 60px auto 40px auto; /* O 'auto' nas laterais centraliza o bloco na tela */
+    padding: 0 24px;    
 }
 .card-secao1-txt{
-    width: 70%;
-    margin-left: 5%;
-    margin-top: 5%;
-}
-.card-secao1-txt h1, .card-secao2-txt h1, .card-secao3-txt h1{
-    text-align: justify;
-    color: #3d195d;
-}
-.card-secao1-txt p, .card-secao2-txt p{
-    text-align: center;
-    width: 80%;
-    font-size: 20px;
-}
-.card-secao1-img img{
-    width: 100%;
-    height: 100%;
+    flex: 1; /* Metade direita (50%) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o texto verticalmente na metade dele */
+    padding: 60px 8%;
 }
 .card-secao2-txt{
     width: 100%;
-    margin-left: 300px;
-    margin-top: 50px;
-    text-align: center;
+    margin: 0;
+}
+.card-secao1-txt h1, .card-secao3-txt h1{
+    text-align: left; /* Evita que títulos curtos estiquem de forma estranha */
+    color: #3d195d;
+    margin-bottom: 16px; /* Afasta o título do parágrafo */
+    line-height: 1.2;
+}
+.card-secao2-txt h1{
+    text-align: center; /* ou 'center', se preferir o título centralizado */
+    color: #3d195d;
+    margin-bottom: 16px;
+}
+.card-secao1-txt p{
+     text-align: justify;
+    width: 100%; /* Faz o texto aproveitar toda a largura da sua div */
+    font-size: 18px; /* Levemente menor que 20px para uma leitura mais elegante */
+    line-height: 1.6; /* Dá respiro entre as linhas do parágrafo */
+    color: #333333;
+}
+.card-secao2-txt p{
+    text-align: justify;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.6;
+}
+.card-secao1-img {
+    width: 40%;
+    overflow: hidden;
+    flex: 1;
+}
+.card-secao1-img img{
+    width: 100%;
+    height: 100%; /* Estica para cobrir toda a altura da div */
+    object-fit: cover; /* Preenche todo o espaço sem distorcer a imagem */
+    object-position: center top; /* Garante que a cabeça do Simeone não seja cortada */
+    display: block;
+    border-radius: 0;
 }
 .button-taticas{
     background-color: #00ff85;
@@ -98,7 +132,7 @@ a{
     width: 70%;
 }
 .card-tecnicos{
-    width: 400px;
+    width: 800px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
