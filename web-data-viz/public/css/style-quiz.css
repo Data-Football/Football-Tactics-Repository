@@ -147,3 +147,17 @@ button {
 .img-footer{
     width: 100px;
 }
+.footer-aviso {
+    background-color: #2e1247; 
+    text-align: center;
+    padding: 12px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-aviso p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.4;
+}
+
