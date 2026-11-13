@@ -1,4 +1,4 @@
-var medidaModel = require("../models/medidaModel");
+var dashModel = require("../models/dashModel");
 
 function buscarInfoQuiz(req, res) {
 
@@ -11,7 +11,7 @@ function buscarInfoQuiz(req, res) {
 
     // console.log(`Recuperando as ultimas ${limite_linhas} informações`);
 
-    medidaModel.buscarInfoQuiz(nome, qtd_acertos, erros, acertos).then(function (resultado) {
+    dashModel.buscarInfoQuiz(nome, qtd_acertos, erros, acertos).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -33,7 +33,7 @@ function buscarConhecimento(req, res) {
 
     // console.log(`Recuperando as ultimas ${limite_linhas} informações`);
 
-    medidaModel.buscarConhecimento(qtd_usuarios, nivel_conhecimento).then(function (resultado) {
+    dashModel.buscarConhecimento(qtd_usuarios, nivel_conhecimento).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -53,7 +53,7 @@ function buscarSugestoes(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarSugestoes(tipo_sugestao, total).then(function (resultado) {
+    dashModel.buscarSugestoes(tipo_sugestao, total).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

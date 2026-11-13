@@ -1,13 +1,7 @@
-var empresaModel = require("../models/empresaModel");
-
-// function listarQuiz(req, res) {
-//   empresaModel.listarQuiz().then((resultado) => {
-//     res.status(200).json(resultado);
-//   });
-// }
+var quizModel = require("../models/quizModel");
 
 function listar(req, res) {
-  empresaModel.listar().then((resultado) => {
+  quizModel.listar().then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -15,7 +9,7 @@ function listar(req, res) {
 function buscarPorUser(req, res) {
   var user_name = req.params.user_name;
 
-  empresaModel.buscarPorUser(user_name).then((resultado) => {
+  quizModel.buscarPorUser(user_name).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -27,7 +21,7 @@ function cadastrar(req, res) {
   var dificuldade = req.body.Dificuldade;
   var id_usuario = req.body.Id
 
-      empresaModel.cadastrar(pontuacao, certas, erradas, dificuldade, id_usuario).then((resultado) => {
+      quizModel.cadastrar(pontuacao, certas, erradas, dificuldade, id_usuario).then((resultado) => {
         res.status(201).json(resultado);
       });
 }

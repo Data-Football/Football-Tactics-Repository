@@ -36,7 +36,7 @@
                 <h2 class="card-principal-h1-h2">Tem alguma sugestão para fazer ao nosso trabalho?</h2>
                 <label for="">Categoria:</label><br>
                 <select name="" id="sel_categoria">
-                    <option value="0" disabled selected>Selecione uma categoria</option>
+                    <option value="0" selected>Selecione uma categoria</option>
                     <option value="Melhorias">Melhorias</option>
                     <option value="Links">Links</option>
                     <option value="Bugs">Bugs</option>
@@ -46,13 +46,14 @@
                 <input type="text" id="ipt_assunto">
                 <label for="">Descrição</label><br>
                 <textarea type="text" id="ipt_descricao" style="width: 100%;"></textarea>
+                <div id="div_msg"></div>
             </form><br>
             <div class="card-botoes">
                     <button onclick="sugestao()" id="btn_sugestao" class="botao-form">Enviar sugestão</button><br>
             </div><br>
             </div>
         </div>
-            <div class="teste" id="div_msg"></div>
+            <div class="teste"></div>
         </div>
     </div>
     </section>
@@ -86,10 +87,14 @@
         let assunto = ipt_assunto.value;
         let descricao = ipt_descricao.value;
 
-        if (assunto == '' || descricao == '') {
-            div_msg.innerHTML = 'Insira informações válidas'
+        if (tipo == '0') {
+            div_msg.innerHTML = 'Informe uma categoria que deseja sugerir!'
+        } else if (assunto == '') {
+            div_msg.innerHTML = 'Informe o assunto que deseja falar conosco!'
+        } else if (descricao == '') {
+            div_msg.innerHTML = 'Informe uma descrição sobre o assunto!'
         } else {
-             fetch("/aquarios/cadastrar", {
+             fetch("/sugestoes/cadastrar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -114,6 +119,11 @@
                 });
 
                 return false;
+
+                div_msg.innerHTML = ''
+                ipt_assunto.value = ''
+                ipt_descricao.value = ''
+                sel_categoria.value = 0
         }
     }
     function login() {

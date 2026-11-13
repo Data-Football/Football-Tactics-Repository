@@ -12,11 +12,6 @@ function listar() {
   return database.executar(instrucaoSql);
 }
 
-// function listarQuiz() {
-//   var instrucaoSql = `select dificuldade, descricao, resposta, descricao_alternativa from vw_select_completo;`;
-
-//    return database.executar(instrucaoSql);
-// }
 
 function cadastrar(pontuacao, certas, erradas, dificuldade, id_usuario) {
   var instrucaoSql = `INSERT INTO quiz (pontuacao_final, acertos, erros, dificuldade, fk_usuario_quiz) 

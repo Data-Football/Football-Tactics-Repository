@@ -25,6 +25,7 @@
                     <input type="text" id="ipt_user_name" placeholder="Ex: Usuario123"><br>
                     <label>Informe uma senha</label><br>
                     <input type="password" id="ipt_senha" placeholder="********"><br><br>
+                    <div id="div_msg" style="text-align: center;"></div>
                 </form>
                 <div class="card-botoes">
                     <button onclick="login()" id="login" class="botao-form">Login</button><br>
@@ -45,7 +46,7 @@
         let user_name = ipt_user_name.value;
         let senha = ipt_senha.value;
         if (user_name == '' || senha == '') {
-            alert("Preencha todos os campos para realizar o login")
+            div_msg.innerHTML = "<span style=color: red>Preencha todos os campos para realizar o login</span><br><br>"
         } else {
             fetch("/usuarios/autenticar", {
                 method: "POST",
