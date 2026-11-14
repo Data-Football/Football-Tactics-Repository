@@ -4,14 +4,14 @@ function buscarInfoQuiz(req, res) {
 
     // const limite_linhas = 5;
 
-    var nome = req.params.nome;
+    var user_name = req.params.user_name;
     var qtd_acertos = req.params.qtd_acertos;
     var erros = req.params.erros;
     var acertos = req.params.acertos;
 
     // console.log(`Recuperando as ultimas ${limite_linhas} informações`);
 
-    dashModel.buscarInfoQuiz(nome, qtd_acertos, erros, acertos).then(function (resultado) {
+    dashModel.buscarInfoQuiz(user_name, qtd_acertos, erros, acertos).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

@@ -13,7 +13,7 @@ function buscarConhecimento() {
 }
 
 function buscarInfoQuiz() {
-  var instrucaoSql = `select c.id, c.nome, q.acertos, q.erros, c.conhecimento, c.tatica from quiz as q
+  var instrucaoSql = `select distinct c.id, c.user_name, q.acertos, q.erros, c.conhecimento, c.tatica from quiz as q
                       join cadastro_usuario as c on c.id = q.fk_usuario_quiz
                       order by q.acertos desc limit 5;`;
 

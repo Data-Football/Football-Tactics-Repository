@@ -84,7 +84,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Quantidade de Usuários',
+                    label: 'Nível Conhecimento',
                     data: [],
                     backgroundColor: '#3d195d',
                     borderColor: '#00ff85',
@@ -100,10 +100,30 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                         title: {
+                        display: true,
+                        text: 'Nível de Conhecimento',
+                        color: '#3d195d', // Cor roxa da paleta do seu projeto
+                        font: {
+                                size: 10,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                        display: true,
+                        text: 'Quantidade de Usuários',
+                        color: '#3d195d', // Cor roxa da paleta do seu projeto
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     }
                 }
             }
+         }
         });
         console.log(chartUserCad)
         let chartSugestoes = new Chart(grafico_sugestoes, {
@@ -322,7 +342,7 @@
 
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                chartUserQuiz.data.labels.push(registro.nome);
+                chartUserQuiz.data.labels.push(registro.user_name);
                 chartUserQuiz.data.datasets[0].data.push(registro.acertos);
             }
 
@@ -385,7 +405,7 @@
                         chartUserQuiz.data.datasets[0].data = [];
 
                         for (let i = 0; i < novoRegistro.length; i++) {
-                            chartUserQuiz.data.labels.push(novoRegistro[i].nome);
+                            chartUserQuiz.data.labels.push(novoRegistro[i].user_name);
                             chartUserQuiz.data.datasets[0].data.push(novoRegistro[i].acertos);
                         }
                         chartUserQuiz.update();
