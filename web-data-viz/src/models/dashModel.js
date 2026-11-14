@@ -15,7 +15,7 @@ function buscarConhecimento() {
 function buscarInfoQuiz() {
   var instrucaoSql = `select c.nome, q.acertos from quiz as q
                         join cadastro_usuario as c on c.id = q.fk_usuario_quiz
-                        order by q.acertos desc
+                        order by q.acertos asc
                         limit 5;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -33,9 +33,7 @@ function buscarSugestoes() {
 }
 
 function buscarMedias() {
-  var instrucaoSql = `select round(avg(cadastro_usuario.conhecimento), 1) as media_conhecimento, round(avg(cadastro_usuario.tatica), 1) as media_tatica, 
-                      round(avg(quiz.acertos), 1) as media_acerto_quiz from cadastro_usuario
-                      join quiz on quiz.fk_usuario_quiz = cadastro_usuario.id;`;
+  var instrucaoSql = `select media_conhecimento, media_tatica, media_acerto_quiz from vw_media_usuarios;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

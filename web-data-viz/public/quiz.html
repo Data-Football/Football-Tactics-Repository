@@ -110,69 +110,88 @@
 <script>
     let user = sessionStorage.USER_USUARIO
     let id_user = sessionStorage.ID_USUARIO
-   const listaDeQuestoes = [
-
-        {
-            numero_questao: '1',
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
-            alternativaCorreta: "alternativaC"
-        },
-
-        {
-            numero_questao: '2',
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
-            alternativaCorreta: "alternativaD"
-        },
-
-        {
-            numero_questao: '3',
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
-        },
-        {
-            numero_questao: '4',
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
-            alternativaCorreta: "alternativaC"
-        },
-
-        {
-            numero_questao: '5',
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
-            alternativaCorreta: "alternativaD"
-        },
-
-        {
-            numero_questao: '6',
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
-        }
-
-    ]
-
+    const listaDeQuestoes = [
+    {
+        pergunta: "Qual esquema tático foi amplamente popularizado pela Seleção Brasileira na Copa do Mundo de 1958, marcando a transição do antigo sistema WM?",
+        alternativaA: "3-5-2",
+        alternativaB: "4-3-3",
+        alternativaC: "4-2-4",
+        alternativaD: "5-4-1",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "No estilo conhecido como Jogo Posicional, qual é a principal função da ocupação racional dos espaços (como os meio-espaços) e da criação de superioridades?",
+        alternativaA: "Recuar os 11 jogadores e apostar apenas em bolas longas",
+        alternativaB: "Garantir linhas de passe constantes e encontrar o 'homem livre' entrelinhas",
+        alternativaC: "Eliminar a posse de bola e focar apenas na marcação individual",
+        alternativaD: "Manter os laterais fixos na linha de fundo sem participar da construção",
+        alternativaCorreta: "alternativaB"
+    },
+    {
+        pergunta: "Qual treinador holandês revolucionou o futebol na década de 1970 com o conceito de 'Futebol Total' (Totaalvoetbal) no Ajax e na Seleção Holandesa?",
+        alternativaA: "Arrigo Sacchi",
+        alternativaB: "Sir Alex Ferguson",
+        alternativaC: "Rinus Michels",
+        alternativaD: "Pep Guardiola",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "O Gegenpressing (pressão pós-perda) é um conceito tático que exige uma reação imediata da equipe em qual momento da partida?",
+        alternativaA: "Nos primeiros segundos logo após perder a posse da bola no campo de ataque",
+        alternativaB: "Apenas em tiros de meta do adversário nos minutos finais",
+        alternativaC: "Quando a equipe vence por dois gols e recua todas as linhas",
+        alternativaD: "Exclusivamente após escanteios cobrados contra a própria área",
+        alternativaCorreta: "alternativaA"
+    },
+    {
+        pergunta: "Qual sistema tático caracteriza-se pelo uso de três zagueiros centrais, dois alas dando amplitude pelos corredores e uma dupla de atacantes?",
+        alternativaA: "4-4-2",
+        alternativaB: "3-5-2",
+        alternativaC: "4-5-1",
+        alternativaD: "4-3-3",
+        alternativaCorreta: "alternativaB"
+    },
+    {
+        pergunta: "Qual inovação tática implementada por Arrigo Sacchi no Milan (anos 1980) quebrou o paradigma da marcação individual vigente na Itália?",
+        alternativaA: "Adoção do líbero fixo atrás de quatro marcadores individuais",
+        alternativaB: "Uso exclusivo de lançamentos diretos ignorando o meio-campo",
+        alternativaC: "Marcação por zona em bloco alto e compacto entre defesa e ataque",
+        alternativaD: "Utilização de três centroavantes fixos dentro da área adversária",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "No tradicional sistema Catenaccio italiano, qual era o papel desempenhado pelo jogador posicionado atrás da linha de defensores, conhecido como 'líbero'?",
+        alternativaA: "Cobrar todos os escanteios e faltas no campo ofensivo",
+        alternativaB: "Atuar como falso 9, recuando do ataque para armar o jogo",
+        alternativaC: "Fazer a cobertura das sobras defensivas e iniciar a saída de bola",
+        alternativaD: "Marcar individualmente o goleiro adversário na reposição",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "Qual lendário treinador comandou o Manchester United por mais de duas décadas, destacando-se pela adaptação tática (como o 4-4-2 e 4-2-3-1) e mentalidade ofensiva?",
+        alternativaA: "Rinus Michels",
+        alternativaB: "Sir Alex Ferguson",
+        alternativaC: "Arrigo Sacchi",
+        alternativaD: "Helenio Herrera",
+        alternativaCorreta: "alternativaB"
+    },
+    {
+        pergunta: "Qual é a principal característica do Jogo de Transição (contra-ataque organizado)?",
+        alternativaA: "Trocar mais de 700 passes em ritmo lento para cansar o oponente",
+        alternativaB: "Aproveitar a desorganização defensiva do adversário logo após retomar a bola, atacando em velocidade",
+        alternativaC: "Manter a posse apenas entre zagueiros e goleiro durante o primeiro tempo",
+        alternativaD: "Evitar passes verticais, priorizando apenas passes recuados",
+        alternativaCorreta: "alternativaB"
+    },
+    {
+        pergunta: "Ao utilizar formações como o 4-5-1 ou o 5-4-1 em uma estratégia reativa, qual é o principal objetivo estrutural da equipe sem a bola?",
+        alternativaA: "Deixar o meio-campo livre para forçar cruzamentos adversários",
+        alternativaB: "Pressionar o goleiro adversário com cinco atacantes simultâneos",
+        alternativaC: "Congestionar o corredor central e compactar as linhas para bloquear infiltrações",
+        alternativaD: "Isolar os zagueiros no mano a mano para liberar os volantes",
+        alternativaCorreta: "alternativaC"
+    }
+    ];
     // variáveis globais    
     let numeroDaQuestaoAtual = 0
     let pontuacaoFinal = 0
@@ -192,14 +211,12 @@
         document.getElementById('pontuacao').style.display = "flex"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
-
         document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
 
         preencherHTMLcomQuestaoAtual(0)
 
         btnSubmeter.disabled = false
         btnProx.disabled = true
-        // btnConcluir.disabled = true
         btnTentarNovamente.disabled = true
     }
 

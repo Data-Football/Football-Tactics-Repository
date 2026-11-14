@@ -11,27 +11,27 @@
     <title>Football Tactics - Dashboard</title>
 </head>
 
-<body onload="obterDadosGrafico()">
+<body onload="obterDadosGrafico(), validarSessao()">
     <header>
         <nav class="card-navbar txt-nav">
             <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics"
                 class="img-nav">
-                <h1>Dashboard Analitíco - Football Tactics</h1>
-            <button class="button-login" id="button_paginas"></button>
+            <h1>Dashboard Analitíco - Football Tactics</h1>
+            <button class="button-logout" id="button_paginas">Sair</button>
         </nav>
     </header>
     <div class="card-kpis">
-        <div class="card-kpi-left">
+        <div class="card-kpi">
             <h3>Média de conhecimento de futebol</h3>
             <span id="media_futebol"></span>
             <h4 id="infos_kpi1"></h4>
         </div>
-        <div class="card-kpi-center">
+        <div class="card-kpi">
             <h3>Média de conhecimento tático</h3>
             <span id="media_tatica"></span>
             <h4 id="infos_kpi2"></h4>
         </div>
-        <div class="card-kpi-right">
+        <div class="card-kpi">
             <h3>Média de acertos no quiz</h3>
             <span id="media_quiz"></span>
             <h4 id="infos_kpi3"></h4>
@@ -39,30 +39,33 @@
     </div>
     <div class="card-pai">
         <div class="card-left">
-            <h3 class="txt-roxo">Analise Conhecimento Tático Usuário</h3>
-            <div class="grafico-size grafico-nivel">
-                <canvas id="user_card"></canvas>
+            <div class="box-conteudo">
+                <h3 class="txt-roxo">Nível de Conhecimento Tático</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="user_card"></canvas>
+                </div>
             </div>
-            <h3 class="txt-roxo">Sugestões recebidas</h3>
-            <div class="grafico-sugestoes">
-                <div style="margin: 10px;">
+
+            <div class="box-conteudo">
+                <h3 class="txt-roxo">Sugestões por Categoria</h3>
+                <div class="canvas-wrapper">
                     <canvas id="sugestoes"></canvas>
                 </div>
             </div>
         </div>
         <div class="card-right">
-            <h3 class="txt-roxo">Top 5 usuários com mais acerto</h3>
-            <div class="grafico-quiz">
-                <canvas id="quiz_usuarios"></canvas>
+            <div class="box-conteudo">
+                <h3 class="txt-roxo">Top 5 Usuários no Quiz</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="quiz_usuarios"></canvas>
+                </div>
             </div>
-            <h3 class="txt-roxo">Top 5 times que os usuários escolhem</h3>
-            <div class="card-table">
-                <table id="ranking">
-                    <tr>
-                        <th id="times">Equipe</th>
-                        <th id="qtd">Quantidade</th>
-                    </tr>
-                </table>
+            <div class="box-conteudo">
+                <h3 class="txt-roxo">Times Mais Escolhidos (Top 5)</h3>
+                <div class="table-wrapper">
+                    <table id="ranking">
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -81,11 +84,14 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Nível de Conhecimento sobre Táticas (0 a 10)',
+                    label: 'Quantidade de Usuários',
                     data: [],
-                    borderWidth: 1,
-                    borderColor: '#3d195d',
-                    backgroundColor: 'rgb (255, 0, 0)'
+                    backgroundColor: '#3d195d',
+                    borderColor: '#00ff85',
+                    borderWidth: 2,
+                    hoverBackgroundColor: '#00ff85',
+                    hoverBorderColor: '#3d195d',
+                    borderRadius: 6
                 },
                 ],
             },
@@ -105,11 +111,16 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Meu primeiro gráfico',
+                    label: '',
                     data: [],
-                    borderWidth: 1,
-                    borderColor: '#00ff85',
-                    backgroundColor: '#3d195d',
+                    backgroundColor: [
+                    '#3d195d', 
+                    '#00ff85', 
+                    '#7b3fb3', 
+                    '#b39ddb'  
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 3
                 },
                 ],
             },
@@ -126,12 +137,13 @@
                         position: 'right',
                         align: 'center',
                         labels: {
+                            color: '#3d195d',
                             font: {
-                                size: 20,
+                                size: 16,
                                 weight: 'bold'
                             },
-                            boxWidth: 50,
-                            padding: 20
+                            boxWidth: 30,
+                            padding: 15
                         }
                     },
                     layout: {
@@ -147,11 +159,14 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Top usuários com mais acertos no quiz',
+                    label: 'Acertos no Quiz',
                     data: [],
-                    borderWidth: 1,
+                    backgroundColor: '#00ff85',
                     borderColor: '#3d195d',
-                    backgroundColor: 'rgb (255, 0, 0)'
+                    borderWidth: 2,
+                    hoverBackgroundColor: '#3d195d',
+                    hoverBorderColor: '#00ff85',
+                    borderRadius: 6
                 },
                 ],
             },
@@ -160,10 +175,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        display: false
-                    }
+                    x: { beginAtZero: true }
                 }
             }
         });
@@ -187,7 +199,7 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
-                fetch(`/dash/ultimas/conhecimento`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dash/ultimas/conhecimento`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -202,7 +214,7 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
-                fetch(`/dash/ultimas/sugestoes`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dash/ultimas/sugestoes`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -217,7 +229,7 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
-                fetch(`/dash/ultimas/medias`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dash/ultimas/medias`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -231,7 +243,7 @@
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
-                  fetch(`/dash/ultimas/times`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dash/ultimas/times`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -246,59 +258,62 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
         }
-        
+
         function plotarTimes(resposta) {
-
-            console.log('iniciando plotagem dos KPI...');
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarKpis":')
-            console.log(resposta)    
-
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarTimes":')
+            console.log(resposta)
+            ranking.innerHTML = `<tr>
+                                <th>Posição</th>
+                                <th>Equipe</th>
+                                <th>Quantidade Escolhida</th>
+                                </tr>`
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                times.innerHTML += `<th>${resposta[i].time}</th>`
-                qtd.innerHTML += `<th>${resposta[i].qtd_times_escolhidos}</th>`
+                ranking.innerHTML += `
+                    <tr>
+                    <td>${i + 1}</td>
+                    <td>${registro.time}</td>
+                    <td>${registro.qtd_times_escolhidos}</td>
+                    </tr>`;
             }
-            // Criando estrutura para plotar gráfico - config
-           // setTimeout(() => atualizarGrafico(), 10000);
+            
+            setTimeout(() => atualizarGrafico(), 5000);
         }
 
         function plotarKpis(resposta) {
 
-            console.log('iniciando plotagem dos KPI...');
-            console.log('----------------------------------------------')
+        
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarKpis":')
-            console.log(resposta)    
+            console.log(resposta)
 
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                media_quiz.innerHTML = `${registro.media_acerto_quiz}`
-                media_tatica.innerHTML = `${registro.media_tatica}`
-                media_futebol.innerHTML = `${registro.media_conhecimento}`
-                if (registro.media_acerto_quiz <= '5') {
-                    infos_kpi3.innerHTML = '<span style="color: red;"> A média de acertos está abaixo do esperado, revise as perguntas</span>';
+                media_quiz.innerHTML = `${registro.media_acerto_quiz}%`
+                media_tatica.innerHTML = `${registro.media_tatica}%`
+                media_futebol.innerHTML = `${registro.media_conhecimento}%`
+                if (registro.media_conhecimento < 50) {
+                    infos_kpi1.innerHTML = '<span style="color: #d90429;">Abaixo de 50%: revise os conteúdos introdutórios do blog.</span>';
                 } else {
-                    infos_kpi3.innerHTML = '<span style="color: green;"> A média de acertos está acima do esperado</span>';
+                    infos_kpi1.innerHTML = '<span style="color: #00994d;">Acima de 50%: bom nível de conhecimento geral do público.</span>';
                 }
-                if (registro.media_tatica < '5') {
-                    infos_kpi2.innerHTML = '<span style="color: red;"> A média de conhecimento tático está abaixo de 5, revise o conteúdo do blog</span>';
+                if (registro.media_tatica < 50) {
+                    infos_kpi2.innerHTML = '<span style="color: #d90429;">Abaixo de 50%: reforce os artigos de formações e estilos de jogo.</span>';
                 } else {
-                    infos_kpi2.innerHTML = '<span style="color: green;"> A média de acertos está acima do esperado</span>';
+                    infos_kpi2.innerHTML = '<span style="color: #00994d;">Acima de 50%: público com bom domínio tático.</span>';
                 }
-                if (registro.media_conhecimento < '5') {
-                    infos_kpi1.innerHTML = '<span style="color: red;"> A média de conhecimento de futebol está abaixo de 5, revise o conteúdo do blog</span>';
+                if (registro.media_acerto_quiz <= 50) {
+                    infos_kpi3.innerHTML = '<span style="color: #d90429;">Abaixo do esperado: revise a dificuldade das perguntas.</span>';
                 } else {
-                    infos_kpi1.innerHTML = '<span style="color: green;"> A média de acertos está acima do esperado</span>';
+                    infos_kpi3.innerHTML = '<span style="color: #00994d;">Acima do esperado: ótimo desempenho geral no quiz.</span>';
                 }
             }
-            // Criando estrutura para plotar gráfico - config
-           // setTimeout(() => atualizarGrafico(), 10000);
+            
+             setTimeout(() => atualizarGrafico(), 5000);
         }
         function plotarGraficoQuiz(resposta) {
 
-            console.log('iniciando plotagem do gráfico...');
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoQuiz":')
             console.log(resposta)
 
             chartUserQuiz.data.labels = [];
@@ -307,67 +322,56 @@
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
                 chartUserQuiz.data.labels.push(registro.nome);
-                chartUserQuiz.data.datasets[0].data.push(registro.acertos);               
+                chartUserQuiz.data.datasets[0].data.push(registro.acertos);
             }
 
             chartUserQuiz.update();
 
-            console.log('----------------------------------------------')
             console.log('O gráfico será plotado com os respectivos valores:')
             console.log('Labels:')
             console.log(labels)
             console.log('Dados:')
             console.log(dados.datasets)
-            console.log('----------------------------------------------')
 
-            // Criando estrutura para plotar gráfico - config
-            setTimeout(() => atualizarGrafico(), 10000);
+            setTimeout(() => atualizarGrafico(), 5000);
         }
 
         function plotarGraficoConhecimento(resposta) {
 
-            console.log('iniciando plotagem do gráfico...');
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoConhecimento":')
             console.log(resposta)
 
             chartUserCad.data.labels = [];
             chartUserCad.data.datasets[0].data = [];
 
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
+    
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
                 chartUserCad.data.labels.push(registro.nivel_conhecimento);
                 chartUserCad.data.datasets[0].data.push(registro.qtd_usuarios);
-               
+
             }
 
 
             chartUserCad.update();
 
-            console.log('----------------------------------------------')
             console.log('O gráfico será plotado com os respectivos valores:')
             console.log('Labels:')
             console.log(labels)
             console.log('Dados:')
             console.log(dados.datasets)
-            console.log('----------------------------------------------')
-
-            // Criando estrutura para plotar gráfico - config
-            setTimeout(() => atualizarGrafico(), 10000);
+      
+            setTimeout(() => atualizarGrafico(), 5000);
         }
 
         function plotarGraficoSugestoes(resposta) {
 
-            console.log('iniciando plotagem do gráfico...');
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoSugestoes":')
             console.log(resposta)
 
             chartSugestoes.data.labels = [];
             chartSugestoes.data.datasets[0].data = [];
 
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
                 chartSugestoes.data.labels.push(registro.tipo_sugestao);
@@ -377,24 +381,16 @@
 
             chartSugestoes.update();
 
-            console.log('----------------------------------------------')
             console.log('O gráfico será plotado com os respectivos valores:')
             console.log('Labels:')
             console.log(labels)
             console.log('Dados:')
             console.log(dados.datasets)
-            console.log('----------------------------------------------')
 
-            // Criando estrutura para plotar gráfico - config
-            setTimeout(() => atualizarGrafico(), 10000);
+            setTimeout(() => atualizarGrafico(), 5000);
         }
 
 
-        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-        // buscando a última medida inserida em tabela contendo as capturas, 
-
-        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-        //     Para ajustar o "select", ajuste o comando sql em src/models
         function atualizarGrafico() {
             fetch(`/dash/ultimas/dados`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -402,25 +398,120 @@
                         console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                         console.log(`Dados atuais do gráfico:`);
 
-
                         if (novoRegistro[0].nome == chartUserQuiz.data.labels[chartUserQuiz.data.labels.length - 1]) {
-                            console.log("---------------------------------------------------------------")
                             console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            console.log("---------------------------------------------------------------")
                         } else {
-                            // tirando e colocando valores no gráfico
                             chartUserQuiz.data.labels.shift(); // apagar o primeiro
-                            chartUserQuiz.data.labels.push(novoRegistro[0].acertos); // incluir um novo momento
+                            chartUserQuiz.data.labels.push(novoRegistro[0].nome); // incluir um novo momento
                             chartUserQuiz.data.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                            chartUserQuiz.data.datasets[0].data.push(novoRegistro[0].nome); // incluir uma nova medida de temperatura
+                            chartUserQuiz.data.datasets[0].data.push(novoRegistro[0].acertos); // incluir uma nova medida de temperatura
                             chartUserQuiz.update();
                         }
-                        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 2000);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 2000);
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+                fetch(`/dash/ultimas/conhecimento`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                        console.log(`Dados atuais do gráfico:`);
+
+                        if (novoRegistro[0].nivel_conhecimento == chartUserCad.data.labels[chartUserCad.data.labels.length - 1]) {
+                            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        } else {
+                            chartUserCad.data.labels.shift(); // apagar o primeiro
+                            chartUserCad.data.labels.push(novoRegistro[0].nivel_conhecimento); // incluir um novo momento
+                            chartUserCad.data.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                            chartUserCad.data.datasets[0].data.push(novoRegistro[0].qtd_usuarios); // incluir uma nova medida de temperatura
+                            chartUserCad.update();
+                        }
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+                fetch(`/dash/ultimas/sugestoes`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                        console.log(`Dados atuais do gráfico:`);
+                        
+                        chartSugestoes.data.labels = [];
+                        chartSugestoes.data.datasets[0].data = [];
+
+                        for (let i = 0; i < novoRegistro.length; i++) {
+                        chartSugestoes.data.labels.push(novoRegistro[i].tipo_sugestao);
+                        chartSugestoes.data.datasets[0].data.push(novoRegistro[i].total);
+                        }
+
+                        chartSugestoes.update();
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+                fetch(`/dash/ultimas/medias`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                        console.log(`Dados atuais do gráfico:`);
+                    if (`${novoRegistro[0].media_acerto_quiz}%` == media_quiz.innerHTML) {
+                    console.log("Sem alteração na média do quiz.");
+                    } else {
+                        media_quiz.innerHTML = `${novoRegistro[0].media_acerto_quiz}%`;
+                    }
+                    if (`${novoRegistro[0].media_tatica}%` == media_tatica.innerHTML) {
+                        console.log("Sem alteração na média de conhecimento tático.");
+                    } else {
+                        media_tatica.innerHTML = `${novoRegistro[0].media_tatica}%`;
+                    }
+                    if (`${novoRegistro[0].media_conhecimento}%` == media_futebol.innerHTML) {
+                        console.log("Sem alteração na média de futebol.");
+                    } else {
+                        media_futebol.innerHTML = `${novoRegistro[0].media_conhecimento}%`;
+                    }
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+                fetch(`/dash/ultimas/times`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                        console.log(`Dados atuais do gráfico:`);
+                        ranking.innerHTML = ''
+                        ranking.innerHTML = `<tr>
+                                <th>Posição</th>
+                                <th>Equipe</th>
+                                <th>Quantidade Escolhida</th>
+                                </tr>`
+                        for (let i = 0; i < novoRegistro.length; i++) {
+                            var registro = novoRegistro[i];
+                            ranking.innerHTML += `
+                                <tr>
+                                <td>${i + 1}</td>
+                                <td>${registro.time}</td>
+                                <td>${registro.qtd_times_escolhidos}</td>
+                                </tr>`;
+                        }
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
             })
                 .catch(function (error) {
