@@ -112,8 +112,9 @@
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
                     if (resposta.ok) {
-                        alert('Formulário enviado!')
+                        div_msg.innerHTML = 'Formulário Enviado, Obrigado Pela Sugestão!'
                     } else {
+                        div_msg.innerHTML = 'Houve um erro ao tentar realizar o envio do formulário!'
                         throw "Houve um erro ao tentar realizar o envio do formulário!";
                     }
                 })
