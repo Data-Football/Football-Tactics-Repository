@@ -38,10 +38,11 @@
             </div>
         </div>
         <br>
+        <div id="div_msg" class="div_msg"></div>
+        <br>
         <div id="jogo" class="width-fit-content flex-colunar border-secondary card-questoes">
-
             <div id="infoQuestao" class="padding-8">
-                <span>Quiz do usuário: <span id="user"></span></span>
+                <span>Quiz do usuário: <span id="user"></span></span><br>
                 <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
                     questões.</span>
             </div>
@@ -192,7 +193,6 @@
         alternativaCorreta: "alternativaC"
     }
     ];
-    // variáveis globais    
     let numeroDaQuestaoAtual = 0
     let pontuacaoFinal = 0
     let tentativaIncorreta = 0
@@ -200,7 +200,7 @@
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
     let dificuldade_quiz = 1
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
         document.getElementById('jogo').style.display = "none"
@@ -217,7 +217,9 @@
 
         btnSubmeter.disabled = false
         btnProx.disabled = true
-        btnTentarNovamente.disabled = true
+        if (index == 10) {
+            btnTentarNovamente.disabled = false
+        }
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -226,7 +228,7 @@
         numeroDaQuestaoAtual = index
         console.log("questaoAtual")
         console.log(questaoAtual)
-        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1
         document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
         document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
         document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
@@ -235,8 +237,7 @@
     }
 
     function submeter() {
-        const options = document.getElementsByName("option"); // recupera alternativas no html
-
+        const options = document.getElementsByName("option");
         let hasChecked = false
         for (let i = 0; i < options.length; i++) {
             if (options[i].checked) {
@@ -244,16 +245,14 @@
                 break
             }
         }
-
         if (!hasChecked) {
-            alert("Não há alternativas escolhidas. Escolha uma opção.")
+            div_msg.innerHTML = 'Não há alternativas escolhidas. Escolha uma opção.'
         } else {
             btnSubmeter.disabled = true
             btnProx.disabled = false
-
             habilitarAlternativas(false)
-
             checarResposta()
+            div_msg.innerHTML = ''
         }
     }
 
@@ -276,10 +275,11 @@
         if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
+            div_msg.innerHTML = 'Atenção... a próxima é a ultima questão!'
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             finalizarJogo()
+            div_msg.innerHTML = ''
         }
         limparCoresBackgroundOpcoes()
     }
@@ -346,15 +346,15 @@
         const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
 
         if (porcentagemFinalDeAcertos <= 0.3) {
-            textoParaMensagemFinal = "Parece que você não estudou..."
+            textoParaMensagemFinal = "Rebaixado para a Série B! Vale a pena reler os artigos de tática do blog antes de voltar a campo."
             classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
         else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
-            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+            textoParaMensagemFinal = "Ficou no meio da tabela! Você já entende o básico, mas ainda dá para evoluir o esquema tático."
             classComCoresParaMensagemFinal = "text-warning-with-bg"
         }
         else if (porcentagemFinalDeAcertos >= 0.9) {
-            textoParaMensagemFinal = "Uau, parabéns!"
+            textoParaMensagemFinal = "Nível Guardiola! Você domina a prancheta tática de ponta a ponta."
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
@@ -365,6 +365,9 @@
         document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
         document.getElementById('jogo').classList.add("text-new-gray") 
+        btnProx.disabled = true
+        btnSubmeter.disabled = true
+        btnTentarNovamente.disabled = false
 
         fetch("/quiz/cadastrar", {
                 method: "POST",
@@ -382,9 +385,9 @@
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
                     if (resposta.ok) {
-                        alert('Quiz salvo!')
+                        div_msg.innerHTML = 'Seu quiz foi salvo!'
                     } else {
-                        throw "Houve um erro ao tentar realizar o cadastro!";
+                        throw "Houve um erro ao tentar realizar o cadastro do quiz!";
                     }
                 })
                 .catch(function (resposta) {
@@ -392,10 +395,7 @@
                 });
 
                 return false;
-                btnProx.disabled = true
-                btnSubmeter.disabled = true
-                // btnConcluir.disabled = true
-                btnTentarNovamente.disabled = false
+                
         }
         
 

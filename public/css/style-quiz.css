@@ -160,4 +160,9 @@ button {
     margin: 0;
     line-height: 1.4;
 }
+.div-msg{
+    text-align: center;
+    color: #3d195d;
+    font-weight: bold;
+}
 
