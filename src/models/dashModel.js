@@ -13,10 +13,9 @@ function buscarConhecimento() {
 }
 
 function buscarInfoQuiz() {
-  var instrucaoSql = `select c.nome, q.acertos from quiz as q
-                        join cadastro_usuario as c on c.id = q.fk_usuario_quiz
-                        order by q.acertos asc
-                        limit 5;`;
+  var instrucaoSql = `select c.id, c.nome, q.acertos, q.erros, c.conhecimento, c.tatica from quiz as q
+                      join cadastro_usuario as c on c.id = q.fk_usuario_quiz
+                      order by q.acertos desc limit 5;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -40,7 +39,8 @@ function buscarMedias() {
 }
 
 function buscarTimes() {
-  var instrucaoSql = `select time, qtd_times_escolhidos from vw_times_escolhidos`;
+  var instrucaoSql = `select time, qtd_times_escolhidos from vw_times_escolhidos
+                      order by qtd_times_escolhidos desc limit 5;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
