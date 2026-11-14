@@ -72,19 +72,19 @@
                         sessionStorage.AUTENTICACAO = JSON.stringify(json.Autenticacao)
                         if (sessionStorage.ID_USUARIO == 1) {
                                 setTimeout(function () {
-                                alert(`Bem-vindo ${user_name}`)
+                                div_msg.innerHTML = `Bem-vindo(a) ${user_name}><br><br>`
                                 window.location.href = "dashboard.html";
                             }, 1000);
                         } else {
                             setTimeout(function () {
-                            alert(`Bem-vindo ${user_name}`)
+                            div_msg.innerHTML = `Bem-vindo(a) ${user_name}><br><br>`
                             window.location.href = "quiz.html";
                         }, 1000);
                         }
                     });
 
                 } else {
-                    alert("Usuário ou senha incorreto")
+                    div_msg.innerHTML = `<span style='color: red'>Bem-vindo(a) ${user_name}></span><br><br>`
                     console.log("Houve um erro ao tentar realizar o login!");
                 }
 
