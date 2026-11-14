@@ -328,12 +328,6 @@
 
             chartUserQuiz.update();
 
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
-
             setTimeout(() => atualizarGrafico(), 5000);
         }
 
@@ -355,12 +349,6 @@
 
 
             chartUserCad.update();
-
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
       
             setTimeout(() => atualizarGrafico(), 5000);
         }
@@ -382,12 +370,6 @@
 
             chartSugestoes.update();
 
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
-
             setTimeout(() => atualizarGrafico(), 5000);
         }
 
@@ -399,15 +381,14 @@
                         console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                         console.log(`Dados atuais do gráfico:`);
 
-                        if (novoRegistro[0].nome == chartUserQuiz.data.labels[chartUserQuiz.data.labels.length - 1]) {
-                            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        } else {
-                            chartUserQuiz.data.labels.shift(); // apagar o primeiro
-                            chartUserQuiz.data.labels.push(novoRegistro[0].nome); // incluir um novo momento
-                            chartUserQuiz.data.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                            chartUserQuiz.data.datasets[0].data.push(novoRegistro[0].acertos); // incluir uma nova medida de temperatura
-                            chartUserQuiz.update();
+                        chartUserQuiz.data.labels = [];
+                        chartUserQuiz.data.datasets[0].data = [];
+
+                        for (let i = 0; i < novoRegistro.length; i++) {
+                            chartUserQuiz.data.labels.push(novoRegistro[i].nome);
+                            chartUserQuiz.data.datasets[0].data.push(novoRegistro[i].acertos);
                         }
+                        chartUserQuiz.update();
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -422,15 +403,14 @@
                         console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                         console.log(`Dados atuais do gráfico:`);
 
-                        if (novoRegistro[0].nivel_conhecimento == chartUserCad.data.labels[chartUserCad.data.labels.length - 1]) {
-                            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        } else {
-                            chartUserCad.data.labels.shift(); // apagar o primeiro
-                            chartUserCad.data.labels.push(novoRegistro[0].nivel_conhecimento); // incluir um novo momento
-                            chartUserCad.data.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                            chartUserCad.data.datasets[0].data.push(novoRegistro[0].qtd_usuarios); // incluir uma nova medida de temperatura
-                            chartUserCad.update();
+                        chartUserCad.data.labels = [];
+                        chartUserCad.data.datasets[0].data = [];
+
+                        for (let i = 0; i < novoRegistro.length; i++) {
+                            chartUserCad.data.labels.push(novoRegistro[i].qtd_usuarios);
+                            chartUserCad.data.datasets[0].data.push(novoRegistro[i].nivel_conhecimento);
                         }
+                        chartUserCad.update();
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -471,16 +451,31 @@
                     console.log("Sem alteração na média do quiz.");
                     } else {
                         media_quiz.innerHTML = `${novoRegistro[0].media_acerto_quiz}%`;
+                        if (novoRegistro[0].media_acerto_quiz < 50) {
+                            infos_kpi3.innerHTML = '<span style="color: #d90429;">Abaixo do esperado: revise a dificuldade das perguntas.</span>';
+                        } else {
+                            infos_kpi3.innerHTML = '<span style="color: #00994d;">Acima do esperado: ótimo desempenho geral no quiz.</span>';
+                        }
                     }
                     if (`${novoRegistro[0].media_tatica}%` == media_tatica.innerHTML) {
                         console.log("Sem alteração na média de conhecimento tático.");
                     } else {
                         media_tatica.innerHTML = `${novoRegistro[0].media_tatica}%`;
+                        if (novoRegistro[0].media_tatica < 50) {
+                            infos_kpi2.innerHTML = '<span style="color: #d90429;">Abaixo de 50%: reforce os artigos de formações e estilos de jogo.</span>';
+                        } else {
+                            infos_kpi2.innerHTML = '<span style="color: #00994d;">Acima de 50%: público com bom domínio tático.</span>';
+                        }
                     }
                     if (`${novoRegistro[0].media_conhecimento}%` == media_futebol.innerHTML) {
                         console.log("Sem alteração na média de futebol.");
                     } else {
                         media_futebol.innerHTML = `${novoRegistro[0].media_conhecimento}%`;
+                        if (novoRegistro[0].media_conhecimento < 50) {
+                            infos_kpi1.innerHTML = '<span style="color: #d90429;">Abaixo de 50%: revise os conteúdos introdutórios do blog.</span>';
+                        } else {
+                            infos_kpi1.innerHTML = '<span style="color: #00994d;">Acima de 50%: bom nível de conhecimento geral do público.</span>';
+                        }
                     }
                     });
                 } else {
@@ -510,9 +505,11 @@
                                 <td>${registro.qtd_times_escolhidos}</td>
                                 </tr>`;
                         }
+                        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
                 }
             })
                 .catch(function (error) {
