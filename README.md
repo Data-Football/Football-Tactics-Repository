@@ -52,32 +52,31 @@ O projeto utiliza uma arquitetura **Monorepo**, onde o servidor Node.js hospeda 
 ```text
 Football-Tactics-Repository/
 │
-├── web-data-viz/               # Aplicação principal (Servidor Express + Front-end)
-│   ├── public/                 # Camada de Front-end (Arquivos Estáticos)
-│   │   ├── assets/             # Imagens, logotipos e diagramas táticos
-│   │   ├── css/                # Folhas de estilo (Identidade visual: #3d195d, #00ff85, #ffffff)
-│   │   ├── js/                 # Scripts de controle de sessão e manipulação do DOM
-│   │   ├── index.html          # Página inicial (Home)
-│   │   ├── taticas.html        # Estilos de jogo e formações táticas
-│   │   ├── tecnicos.html       # Treinadores históricos
-│   │   ├── cadastro.html       # Formulário de cadastro de usuários
-│   │   ├── login.html          # Tela de autenticação
-│   │   ├── quiz.html           # Quiz interativo sobre táticas
-│   │   ├── sugestoes.html      # Envio de feedbacks categorizados
-│   │   └── dashboard.html      # Painel analítico com gráficos e KPIs
-│   │
-│   ├── src/                    # Camada de Back-end (Padrão MVC)
-│   │   ├── controllers/        # Regras de negócio e tratamento de requisições/respostas
-│   │   ├── database/           # Configuração de conexão e scripts SQL
-│   │   ├── models/             # Execução das queries SQL no MySQL
-│   │   └── routes/             # Definição dos endpoints da API
-│   │
-│   ├── app.js                  # Ponto de entrada do servidor Node.js
-│   └── package.json            # Dependências e scripts do projeto
+│── public/               # Camada de Front-end (Arquivos Estáticos)
+│ ├── assets/             # Imagens, logotipos e diagramas táticos
+│ ├── css/                # Folhas de estilo (Identidade visual: #3d195d, #00ff85, #ffffff)
+│ ├── js/                 # Scripts de controle de sessão e manipulação do DOM
+│ ├── index.html          # Página inicial (Home)
+│ ├── taticas.html        # Estilos de jogo e formações táticas
+│ ├── tecnicos.html       # Treinadores históricos
+│ ├── cadastro.html       # Formulário de cadastro de usuários
+│ ├── login.html          # Tela de autenticação
+│ ├── quiz.html           # Quiz interativo sobre táticas
+│ ├── sugestoes.html      # Envio de feedbacks categorizados
+│ └── dashboard.html      # Painel analítico com gráficos e KPIs
+│ 
+│── src/                  # Camada de Back-end (Padrão MVC)
+│ ├── controllers/        # Regras de negócio e tratamento de requisições/respostas
+│ ├── database/           # Configuração de conexão e scripts SQL
+│ ├── models/             # Execução das queries SQL no MySQL
+│ └── routes/             # Definição dos endpoints da API
+│ │
+│ ├── app.js              # Ponto de entrada do servidor Node.js
+│ └── package.json        # Dependências e scripts do projeto
 │
-├── docs/                       # Documentação acadêmica (DER e Diário de Prompts)
-├── .gitignore                  # Arquivos e pastas ignorados no versionamento
-└── README.md                   # Documentação central do repositório
+├── docs/                 # Documentação acadêmica (DER e Diário de Prompts)
+├── .gitignore            # Arquivos e pastas ignorados no versionamento
+└── README.md             # Documentação central do repositório
 ```
 
 ---
@@ -101,7 +100,7 @@ Football-Tactics-Repository/
 
 3. **Acesse o diretório da aplicação e instale as dependências:**
    ```bash
-   cd Football-Tactics-Repository/web-data-viz
+   cd Football-Tactics-Repository
    npm install
    ```
 
@@ -126,4 +125,4 @@ A interface foi projetada com foco em contraste e legibilidade para análises es
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **João F. Cunha** — Estudante de Ciência da Computação na **São Paulo Tech School (SPTech)**.
+Desenvolvido por **João Vitor Franciscone da Cunha** — Estudante de Ciência da Computação na **São Paulo Tech School (SPTech)**.
