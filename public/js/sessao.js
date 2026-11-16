@@ -11,7 +11,7 @@
                 botao.textContent = 'Sair da sessão'
                 botao.onclick = limparSessao;
             } else {
-                if (pagina.includes('quiz') || pagina.includes('sugestoes')) {
+                if (pagina.includes('quiz') || pagina.includes('sugestoes') || pagina.includes('dashboard')) {
                     window.location = "./login.html";
                 } else {
                     botao.textContent = 'Login'
