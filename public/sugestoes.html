@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,79 +9,84 @@
     <link rel="icon" type="image/png" href="./assets/img/football_tactics_remove.png">
     <title>Football Tactics</title>
 </head>
+
 <body onload="validarSessao()">
     <div class="card-total">
         <header>
-        <nav class="card-navbar txt-nav">
-            <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics" class="img-nav">
-            <div class="card-navbar-links">
-                <ul>
-                <li><a href="./index.html">Inicio</a></li>
-                <li><a href="./taticas.html">Táticas</a></li>
-                <li><a href="./tecnicos.html">Técnicos</a></li>
-                <li><a href="./sugestoes.html">Sugestões</a></li>
-                <li><a href="./quiz.html">Quiz</a></li>
-                </ul>
+            <nav class="card-navbar txt-nav">
+                <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics"
+                    class="img-nav">
+                <div class="card-navbar-links">
+                    <ul>
+                        <li><a href="./index.html">Inicio</a></li>
+                        <li><a href="./taticas.html">Táticas</a></li>
+                        <li><a href="./tecnicos.html">Técnicos</a></li>
+                        <li><a href="./sugestoes.html">Sugestões</a></li>
+                        <li><a href="./quiz.html">Quiz</a></li>
+                    </ul>
+                </div>
+                <button class="button-login" id="button_paginas"></button>
+            </nav>
+        </header>
+        <section>
+            <div class="card-pai">
+                <div class="card-img">
+                </div>
+                <div class="card-principal">
+                    <div class="card-form">
+                        <form id="form_cadastro">
+                            <h1 class="card-principal-h1-h2">Sugestões!</h1>
+                            <h2 class="card-principal-h1-h2">Tem alguma sugestão para fazer ao nosso trabalho?</h2>
+                            <label for="">Categoria:</label><br>
+                            <select name="" id="sel_categoria">
+                                <option value="0" selected>Selecione uma categoria</option>
+                                <option value="Novos Conteúdos">Novos Conteúdos</option>
+                                <option value="Perguntas do Quiz">Sugestão de Perguntas (Quiz)</option>
+                                <option value="Melhorias no Site">Melhorias no Site</option>
+                                <option value="Bugs e Erros">Erro Técnico / Bug</option>
+                                <option value="Elogios">Elogios</option>
+                            </select><br>
+                            <label for="">Assunto:</label>
+                            <input type="text" id="ipt_assunto">
+                            <label for="">Descrição</label><br>
+                            <textarea type="text" id="ipt_descricao" style="width: 100%;"></textarea>
+                            <div id="div_msg"></div>
+                        </form><br>
+                        <div class="card-botoes">
+                            <button onclick="sugestao()" id="btn_sugestao" class="botao-form">Enviar
+                                sugestão</button><br>
+                        </div><br>
+                    </div>
+                </div>
+                <div class="teste"></div>
             </div>
-            <button class="button-login" id="button_paginas"></button>
-        </nav>
-    </header>
-    <section>
-        <div class="card-pai">
-        <div class="card-img">
-        </div>
-        <div class="card-principal">
-            <div class="card-form">
-                <form id="form_cadastro">
-                <h1 class="card-principal-h1-h2">Sugestões!</h1>
-                <h2 class="card-principal-h1-h2">Tem alguma sugestão para fazer ao nosso trabalho?</h2>
-                <label for="">Categoria:</label><br>
-                <select name="" id="sel_categoria">
-                    <option value="0" selected>Selecione uma categoria</option>
-                    <option value="Novos Conteúdos">Novos Conteúdos</option>
-                    <option value="Perguntas do Quiz">Sugestão de Perguntas (Quiz)</option>
-                    <option value="Melhorias no Site">Melhorias no Site</option>
-                    <option value="Bugs e Erros">Erro Técnico / Bug</option>
-                    <option value="Elogios">Elogios</option>
-                </select><br>
-                <label for="">Assunto:</label>
-                <input type="text" id="ipt_assunto">
-                <label for="">Descrição</label><br>
-                <textarea type="text" id="ipt_descricao" style="width: 100%;"></textarea>
-                <div id="div_msg"></div>
-            </form><br>
-            <div class="card-botoes">
-                    <button onclick="sugestao()" id="btn_sugestao" class="botao-form">Enviar sugestão</button><br>
-            </div><br>
-            </div>
-        </div>
-            <div class="teste"></div>
-        </div>
     </div>
     </section>
-        <div class="card-footer txt-footer footer">
-            <div class="footer-left">
-                <h2>Contato</h2>
-                <a href="mailto: joao.fcunha@sptech.school">joao.fcunha@sptech.school</a>
-            </div>
-            <div class="card-navbar-links footer-center">
-                <ul>
+    <div class="card-footer txt-footer footer">
+        <div class="footer-left">
+            <h2>Contato</h2>
+            <a href="mailto: joao.fcunha@sptech.school">joao.fcunha@sptech.school</a>
+        </div>
+        <div class="card-navbar-links footer-center">
+            <ul>
                 <li><a href="./index.html">Inicio</a></li>
                 <li><a href="./taticas.html">Táticas</a></li>
                 <li><a href="./tecnicos.html">Técnicos</a></li>
                 <li><a href="./sugestoes.html">Sugestões</a></li>
                 <li><a href="./quiz.html">Quiz</a></li>
-                </ul>
-            </div>
-            <div class="footer-right">
-                <img src="./assets/img/football_tactics_remove.png" alt="Logo da Football Tactics" class="img-footer">
-                <p>© 2026 Football Tactics -
-                <br> Todos os direitos reservados.</p>
-            </div>
+            </ul>
         </div>
-        <div class="footer-aviso">
-        <p>Projeto acadêmico sem fins lucrativos. Imagens, GIFs e marcas exibidas pertencem aos seus respectivos proprietários e são usadas apenas para fins educacionais.</p>
+        <div class="footer-right">
+            <img src="./assets/img/football_tactics_remove.png" alt="Logo da Football Tactics" class="img-footer">
+            <p>© 2026 Football Tactics -
+                <br> Todos os direitos reservados.
+            </p>
         </div>
+    </div>
+    <div class="footer-aviso">
+        <p>Projeto acadêmico sem fins lucrativos. Imagens, GIFs e marcas exibidas pertencem aos seus respectivos
+            proprietários e são usadas apenas para fins educacionais.</p>
+    </div>
     </section>
 </body>
 <script>
@@ -97,7 +103,7 @@
         } else if (descricao == '') {
             div_msg.innerHTML = 'Informe uma descrição sobre o assunto!'
         } else {
-             fetch("/sugestoes/cadastrar", {
+            fetch("/sugestoes/cadastrar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -113,8 +119,20 @@
                     console.log("resposta: ", resposta);
                     if (resposta.ok) {
                         div_msg.innerHTML = 'Formulário Enviado, Obrigado Pela Sugestão!'
+                        setTimeout(function () {
+                            sel_categoria.value = 0;
+                            ipt_assunto.value = ''
+                            ipt_descricao.value = ''
+                            div_msg.innerHTML = ''
+                        }, 2000);
                     } else {
                         div_msg.innerHTML = 'Houve um erro ao tentar realizar o envio do formulário!'
+                        setTimeout(function () {
+                            sel_categoria.value = 0;
+                            ipt_assunto.value = ''
+                            ipt_descricao.value = ''
+                            div_msg.innerHTML = ''
+                        }, 2000);
                         throw "Houve um erro ao tentar realizar o envio do formulário!";
                     }
                 })
@@ -122,12 +140,12 @@
                     console.log(`#ERRO: ${resposta}`)
                 });
 
-                return false;
+            return false;
 
-                div_msg.innerHTML = ''
-                ipt_assunto.value = ''
-                ipt_descricao.value = ''
-                sel_categoria.value = 0
+            div_msg.innerHTML = ''
+            ipt_assunto.value = ''
+            ipt_descricao.value = ''
+            sel_categoria.value = 0
         }
     }
     function login() {
@@ -137,4 +155,5 @@
         window.location.href = './taticas.html';
     }
 </script>
+
 </html>
