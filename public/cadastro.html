@@ -20,31 +20,32 @@
                 <form id="form_cadastro">
                     <h1>Faça parte da equipe!</h1>
                     <h2>Preencha as informaçãos abaixo para se cadastrar</h2>
+                    <div id="div_avisos" class="card-avisos"></div>
                     <label>Informe o seu nome</label><br>
                     <input type="text" id="ipt_nome" placeholder="Ex: Seu nome"><br>
                     <label>Informe o seu email</label><br>
-                    <input type="text" id="ipt_email" placeholder="Ex: endereco@contato.com" onkeyup="validacoes()" oninput="div_msg_email.innerHTML = ''"><br>
+                    <input type="text" id="ipt_email" placeholder="Ex: endereco@contato.com" onkeyup="validacoes()"><br>
                     <div id="div_msg_email"></div>
                     <label>Informe o seu telefone</label><br>
                     <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="ipt_telefone"
-                    placeholder="Ex: (xx) xxxxx-xxxx" onkeyup="validacoes()" oninput="div_msg_telefone.innerHTML = ''"><br>
+                    placeholder="Ex: (xx) xxxxx-xxxx" onkeyup="validacoes()"><br>
                     <div id="div_msg_telefone"></div>
                     <label>Informe o seu nome de usuário</label><br>
-                    <input type="text" id="ipt_user" placeholder="Ex: Usuario123" onkeyup="validacoes()" oninput="div_user_name.innerHTML = ''"><br>
+                    <input type="text" id="ipt_user" placeholder="Ex: Usuario123" onkeyup="validacoes()" ><br>
                     <div id="div_user_name"></div>
                     <label>Informe o time que você torçe</label><br>
                     <select name="" id="sel_times" style="width: 100%;"></select><br>
                     <label>De 0 a 10, qual o seu conhecimento de futebol?</label><br>
-                    <input type="text" id="ipt_conhecimento" placeholder="Ex: 5" onkeyup="validacoes()" oninput="div_msg_conhecimento.innerHTML = ''"><br>
+                    <input type="text" id="ipt_conhecimento" placeholder="Ex: 5" onkeyup="validacoes()"><br>
                     <div id="div_msg_conhecimento"></div>
                     <label>De 0 a 10, qual o seu conhecimento de tática?</label><br>
-                    <input type="text" id="ipt_tatica" placeholder="Ex: 8" onkeyup="validacoes()" oninput="div_msg_tatica.innerHTML = ''"><br>
+                    <input type="text" id="ipt_tatica" placeholder="Ex: 8" onkeyup="validacoes()"><br>
                     <div id="div_msg_tatica"></div>
                     <label>Informe uma senha</label><br>
-                    <input type="password" id="ipt_senha" placeholder="********" onkeyup="validacoes()" oninput="div_msg_senha.innerHTML = ''"><br>
+                    <input type="password" id="ipt_senha" placeholder="********" onkeyup="validacoes()" ><br>
                     <div id="div_msg_senha"></div>
                     <label>Informe a senha novamente</label><br>
-                    <input type="password" id="ipt_conf_senha" placeholder="********" onkeyup="validacoes()" oninput="div_msg_confsenha.innerHTML = ''"><br>
+                    <input type="password" id="ipt_conf_senha" placeholder="********" onkeyup="validacoes()"><br>
                     <div id="div_msg_confsenha"></div>
                     <div id="div_conf_senha"></div>
                 </form><br>
@@ -55,7 +56,6 @@
             </div>
         </div>
         <div class="teste">
-            <div id="div_avisos"></div>
         </div>
     </div>
     </div>
@@ -105,11 +105,11 @@
                 div_msg_email.innerHTML = '<span style="color: red;">Formato de e-mail inválido. O "@" deve vir antes do ".com</span>'
                 validacao_ok = false
             }
-            if (conhecimento < 0 || conhecimento > 10) {
+            if (conhecimento < 0 || conhecimento > 10 || isNaN(conhecimento)) {
                 div_msg_conhecimento.innerHTML = '<span style="color: red;">Informe um número de 0 a 10</span>'
                 validacao_ok = false
             }
-            if (tatica < 0 || tatica > 10) {
+            if (tatica < 0 || tatica > 10 || isNaN(tatica)) {
                 div_msg_tatica.innerHTML = '<span style="color: red;">Informe um número de 0 a 10</span>'
                 validacao_ok = false
             }
@@ -170,7 +170,7 @@
             div_avisos.innerHTML = '<span style="color: white;">Preencha todos os campos</span>'
         } else {
             if (validacao_ok == false) {
-                div_avisos.innerHTML = '<span style="color: red;">Houve um erro para realizar o seu cadastro, preencha as informaçõe novamente</span>'
+                div_avisos.innerHTML = '<span style="color: red;">Houve um erro para realizar o seu cadastro, preencha as informações novamente</span>'
                 limparFormulario()
             } else {
                 fetch("/usuarios/cadastrar", {
@@ -196,7 +196,7 @@
                             limparFormulario()
                             setTimeout(() => {
                                 window.location.href = 'login.html'
-                            }, 1000)
+                            }, 3000)
 
                         } else {
                             throw "Houve um erro ao tentar realizar o cadastro!";

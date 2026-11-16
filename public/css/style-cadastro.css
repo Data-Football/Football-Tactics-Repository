@@ -58,3 +58,9 @@ body{
     order: 3;
     width: 20%;
 }
+.card-avisos{
+    text-align: center;
+    width: 100%;
+    color: #3d195d;
+    background-color: white;
+}
