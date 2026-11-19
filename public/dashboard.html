@@ -17,7 +17,7 @@
             <img src="./assets/img/DATA_FOOTBALL_branco-removebg-preview.png" alt="Logo da Football Tactics"
                 class="img-nav">
             <h1>Dashboard Analitíco - Football Tactics</h1>
-            <button class="button-logout" id="button_paginas">Sair</button>
+            <button class="button-logout" id="button_paginas"></button>
         </nav>
     </header>
     <div class="card-kpis">
@@ -103,8 +103,8 @@
                         beginAtZero: true,
                          title: {
                         display: true,
-                        text: 'Nível de Conhecimento',
-                        color: '#3d195d', // Cor roxa da paleta do seu projeto
+                        text: 'Quantidade de Usuários',
+                        color: '#3d195d',
                         font: {
                                 size: 10,
                                 weight: 'bold'
@@ -114,7 +114,7 @@
                     x: {
                         title: {
                         display: true,
-                        text: 'Quantidade de Usuários',
+                        text: 'Nível de Conhecimento',
                         color: '#3d195d',
                         font: {
                             size: 14,
@@ -361,8 +361,8 @@
     
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                chartUserCad.data.labels.push(registro.nivel_conhecimento);
-                chartUserCad.data.datasets[0].data.push(registro.qtd_usuarios);
+                chartUserCad.data.labels.push(registro.qtd_usuarios);
+                chartUserCad.data.datasets[0].data.push(registro.nivel_conhecimento);
 
             }
 
@@ -426,8 +426,8 @@
                         chartUserCad.data.datasets[0].data = [];
 
                         for (let i = 0; i < novoRegistro.length; i++) {
-                            chartUserCad.data.labels.push(novoRegistro[i].qtd_usuarios);
-                            chartUserCad.data.datasets[0].data.push(novoRegistro[i].nivel_conhecimento);
+                            chartUserCad.data.labels.push(novoRegistro[i].nivel_conhecimento);
+                            chartUserCad.data.datasets[0].data.push(novoRegistro[i].qtd_usuarios);
                         }
                         chartUserCad.update();
                     });
