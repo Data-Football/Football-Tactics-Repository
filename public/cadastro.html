@@ -49,7 +49,7 @@
                     <div id="div_conf_senha"></div>
                 </form><br>
                 <div class="card-botoes">
-                    <button onclick="cadastrar()" id="cadastrar" class="botao-form">Cadastrar</button><br>
+                    <button onclick="cadastrar()" id="btn_cadastrar" class="botao-form">Cadastrar</button><br>
                 </div><br>
 
             </div>
@@ -178,7 +178,7 @@
         let time = Number(sel_times.value)
         let senha = ipt_senha.value
         let conf_senha = ipt_conf_senha.value
-        if (nome == '' || email == '' || telefone == '' || user_name == '' || conhecimento == '' || tatica == '' || time == 0 || senha == '' || conf_senha == '') {
+        if (nome == '' || email == '' || telefone == '' || user_name == '' || isNaN(conhecimento) || isNaN(tatica) || time == 0 || senha == '' || conf_senha == '') {
             div_avisos.innerHTML = '<span style="color: white;">Preencha todos os campos</span>'
         } else {
             validacoes()
