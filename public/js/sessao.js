@@ -17,7 +17,7 @@ function validarSessao() {
   }
   if (user_name != null && senha != null) {
     console.log("Usuário logado");
-    botao.textContent = "Sair da sessão";
+    botao.textContent = "Sair";
     botao.onclick = limparSessao;
   } else {
     if (
