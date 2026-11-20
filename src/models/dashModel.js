@@ -1,21 +1,25 @@
 var database = require("../database/config");
 
 function buscarConhecimento() {
-  var instrucaoSql = `SELECT 
-                        tatica AS nivel_conhecimento, 
-                        COUNT(id) AS qtd_usuarios 
-                        FROM cadastro_usuario 
-                        GROUP BY tatica 
-                        ORDER BY tatica ASC;`;
+  var instrucaoSql = `select 
+                      tatica AS nivel_conhecimento, 
+                      COUNT(id) AS qtd_usuarios 
+                      from cadastro_usuario 
+                      where cadastro_usuario.id > 1
+                      group by tatica 
+                      order by tatica asc;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function buscarInfoQuiz() {
-  var instrucaoSql = `select distinct c.id, c.user_name, q.acertos, q.erros, c.conhecimento, c.tatica from quiz as q
-                      join cadastro_usuario as c on c.id = q.fk_usuario_quiz
-                      order by q.acertos desc limit 5;`;
+  var instrucaoSql = `select c.id, c.user_name, max(q.acertos) as acertos from quiz as q
+                      right join cadastro_usuario as c on c.id = q.fk_usuario_quiz
+                      where c.id > 1
+                      group by c.id, c.user_name
+                      order by acertos desc 
+                      limit 5;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
