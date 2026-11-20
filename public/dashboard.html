@@ -328,7 +328,7 @@
                 }
             }
             
-             setTimeout(() => atualizarGrafico(), 5000);
+             setTimeout(() => atualizarGrafico(), 20000);
         }
         function plotarGraficoQuiz(resposta) {
 
@@ -347,7 +347,7 @@
 
             chartUserQuiz.update();
 
-            setTimeout(() => atualizarGrafico(), 5000);
+            setTimeout(() => atualizarGrafico(), 20000);
         }
 
         function plotarGraficoConhecimento(resposta) {
@@ -369,7 +369,7 @@
 
             chartUserCad.update();
       
-            setTimeout(() => atualizarGrafico(), 5000);
+            setTimeout(() => atualizarGrafico(), 20000);
         }
 
         function plotarGraficoSugestoes(resposta) {
@@ -389,7 +389,7 @@
 
             chartSugestoes.update();
 
-            setTimeout(() => atualizarGrafico(), 5000);
+            setTimeout(() => atualizarGrafico(), 20000);
         }
 
 
@@ -524,11 +524,11 @@
                                 <td>${registro.qtd_times_escolhidos}</td>
                                 </tr>`;
                         }
-                        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
+                        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                 }
             })
                 .catch(function (error) {
