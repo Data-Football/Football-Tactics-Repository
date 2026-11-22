@@ -26,9 +26,6 @@
                     <label>Informe o seu email</label><br>
                     <input type="text" id="ipt_email" placeholder="Ex: endereco@contato.com" onkeyup="validacoes()"><br>
                     <div id="div_msg_email"></div>
-                    <label>Informe o seu telefone</label><br>
-                    <input type="tel" id="ipt_telefone" maxlength="15" placeholder="Ex: (xx) xxxxx-xxxx" onkeyup="validacoes()" oninput="formatarTelefone()"><br>
-                    <div id="div_msg_telefone"></div>
                     <label>Informe o seu nome de usuário</label><br>
                     <input type="text" id="ipt_user" placeholder="Ex: Usuario123"  onkeyup="validacoes()"><br>
                     <div id="div_user_name"></div>
@@ -63,19 +60,6 @@
     let Cadastro = []
     let Equipes = []
     let validacao_ok = false
-    function formatarTelefone() {
-        let telefone = ipt_telefone.value.replace(/\D/g, '');
-        if (telefone.length > 11) {
-            telefone = telefone.slice(0, 11);
-        }
-        if (telefone.length > 7) {
-            ipt_telefone.value = `(${telefone.slice(0, 2)}) ${telefone.slice(2, 7)}-${telefone.slice(7)}`;
-        } else if (telefone.length > 2) {
-            ipt_telefone.value = `(${telefone.slice(0, 2)}) ${telefone.slice(2)}`;
-        } else if (telefone.length > 0) {
-            ipt_telefone.value = `(${telefone}`;
-        }
-    }
     function validacoes() {
         div_user_name.innerHTML = ''
         div_msg_email.innerHTML = ''
@@ -89,7 +73,6 @@
         let conf_senha = ipt_conf_senha.value
         let nome = ipt_nome.value
         let email = ipt_email.value.trim()
-        let telefone = ipt_telefone.value
         let conhecimento = Number(conhecimento_verificacao);
         let tatica = Number(tatica_verificacao);
         let user_name = ipt_user.value.trim()
@@ -171,14 +154,13 @@
     function cadastrar() {
         let nome = ipt_nome.value
         let email = ipt_email.value
-        let telefone = ipt_telefone.value
         let user_name = ipt_user.value
         let conhecimento = Number(ipt_conhecimento.value)
         let tatica = Number(ipt_tatica.value)
         let time = Number(sel_times.value)
         let senha = ipt_senha.value
         let conf_senha = ipt_conf_senha.value
-        if (nome == '' || email == '' || telefone == '' || user_name == '' || isNaN(conhecimento) || isNaN(tatica) || time == 0 || senha == '' || conf_senha == '') {
+        if (nome == '' || email == '' || user_name == '' || isNaN(conhecimento) || isNaN(tatica) || time == 0 || senha == '' || conf_senha == '') {
             div_avisos.innerHTML = '<span style="color: white;">Preencha todos os campos</span>'
         } else {
             validacoes()
@@ -197,7 +179,6 @@
                         User: user_name,
                         Email: email,
                         Senha: senha,
-                        Telefone: telefone,
                         Time: time,
                         Conhecimento: conhecimento,
                         Tatica: tatica
@@ -230,7 +211,6 @@
     function limparFormulario() {
         ipt_nome.value = '';
         ipt_email.value = '';
-        ipt_telefone.value = '';
         ipt_user.value = '';
         ipt_conhecimento.value = '';
         ipt_conf_senha.value = '';
