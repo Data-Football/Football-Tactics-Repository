@@ -208,7 +208,6 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
                         plotarGraficoQuiz(resposta);
                     });
                 } else {
@@ -223,7 +222,6 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
                         plotarGraficoConhecimento(resposta);
                     });
                 } else {
@@ -238,7 +236,6 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
                         plotarGraficoSugestoes(resposta);
                     });
                 } else {
@@ -253,7 +250,6 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
                         plotarKpis(resposta);
                     });
                 } else {
@@ -267,15 +263,17 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
                         plotarTimes(resposta);
+                        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                 }
             })
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                 });
         }
 
@@ -296,8 +294,6 @@
                     <td>${registro.qtd_times_escolhidos}</td>
                     </tr>`;
             }
-            
-            setTimeout(() => atualizarGrafico(), 5000);
         }
 
         function plotarKpis(resposta) {
@@ -327,8 +323,7 @@
                     infos_kpi3.innerHTML = '<span style="color: #00994d;">Acima do esperado: ótimo desempenho geral no quiz.</span>';
                 }
             }
-            
-             setTimeout(() => atualizarGrafico(), 20000);
+
         }
         function plotarGraficoQuiz(resposta) {
 
@@ -346,8 +341,6 @@
             }
 
             chartUserQuiz.update();
-
-            setTimeout(() => atualizarGrafico(), 20000);
         }
 
         function plotarGraficoConhecimento(resposta) {
@@ -368,8 +361,6 @@
 
 
             chartUserCad.update();
-      
-            setTimeout(() => atualizarGrafico(), 20000);
         }
 
         function plotarGraficoSugestoes(resposta) {
@@ -388,8 +379,6 @@
 
 
             chartSugestoes.update();
-
-            setTimeout(() => atualizarGrafico(), 20000);
         }
 
 
@@ -399,7 +388,7 @@
                     response.json().then(function (novoRegistro) {
                         console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                         console.log(`Dados atuais do gráfico:`);
-
+                        
                         chartUserQuiz.data.labels = [];
                         chartUserQuiz.data.datasets[0].data = [];
 
@@ -533,6 +522,7 @@
             })
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(), 20000);
                 });
         }
     </script>
