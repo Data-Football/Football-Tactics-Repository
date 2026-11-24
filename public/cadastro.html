@@ -83,7 +83,7 @@
         validacao_ok = true
 
         for (let i = 0; i < Cadastro.length; i++) {
-            if (Cadastro[i].user_name == ipt_user.value) {
+            if (Cadastro[i].user_name == user_name) {
                 div_user_name.innerHTML = '<span style="color: red;">O nome do usuário já foi selecionado</span>'
                 console.log('Usuário não pode ser cadastrado')
                 validacao_ok = false
