@@ -5,20 +5,15 @@ function validarSessao() {
   var id = sessionStorage.ID_USUARIO;
   var botao = document.getElementById("button_paginas");
   var pagina = window.location.pathname;
-  if (id != 1 && pagina.includes("dashboard")) {
-    alert("ALERTA! VOCÊ NÃO TEM ACESSO A ESSA PÁGINA");
-    setTimeout(() => {
-      window.location = "./login.html";
-    }, 2000);
-  } else {
-    console.log("Usuário Administrador Logado!");
-    botao.textContent = "Sair";
-    botao.onclick = limparSessao;
-  }
   if (user_name != null && senha != null) {
-    console.log("Usuário logado");
-    botao.textContent = "Sair";
-    botao.onclick = limparSessao;
+    if (id != 1 && pagina.includes("dashboard")) {
+      alert("ALERTA! VOCÊ NÃO TEM ACESSO A ESSA PÁGINA");
+      window.location = "./login.html";
+    }
+    if (botao) {
+      botao.textContent = "Sair";
+      botao.onclick = limparSessao;
+    }
   } else {
     if (
       pagina.includes("quiz") ||
@@ -26,7 +21,7 @@ function validarSessao() {
       pagina.includes("dashboard")
     ) {
       window.location = "./login.html";
-    } else {
+    } else if (botao) {
       botao.textContent = "Login";
       botao.onclick = login;
     }

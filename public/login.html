@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Tactics - Cadastro</title>
+    <title>Football Tactics - Login</title>
     <link rel="stylesheet" href="./css/style-login.css">
     <link rel="icon" type="image/png" href="./assets/img/football_tactics_remove.png">
     <script src="js/sessao.js"></script>
@@ -66,9 +66,9 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        sessionStorage.USER_USUARIO = JSON.stringify(json.User);
-                        sessionStorage.SENHA_USUARIO = JSON.stringify(json.Senha)
-                        sessionStorage.ID_USUARIO = JSON.stringify(json.Id)
+                        sessionStorage.USER_USUARIO = json.User;
+                        sessionStorage.SENHA_USUARIO = json.Senha
+                        sessionStorage.ID_USUARIO = json.Id
                         sessionStorage.AUTENTICACAO = JSON.stringify(json.Autenticacao)
                         if (sessionStorage.ID_USUARIO == 1) {
                                 div_msg.innerHTML = `Bem-vindo(a) ${user_name}<br><br>`
